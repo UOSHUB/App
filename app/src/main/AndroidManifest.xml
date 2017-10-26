@@ -1,0 +1,45 @@
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="baxzel.uoshub">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/uoshub_icon2"
+        android:roundIcon="@mipmap/uoshub_icon2"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/UOSHUB_theme">
+
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name"
+            android:exported="true">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".SplashActivity"
+            android:label="@string/title_activity_splash"
+            android:exported="false">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+    </application>
+</manifest>

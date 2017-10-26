@@ -1,0 +1,8 @@
+<resources>
+    <color name="colorPrimary">#4baf50</color>
+    <color name="colorPrimaryDark">#2d7d32</color>
+    <color name="colorAccent">#4baf50</color>
+    <color name="UOSHUB_accent">#4baf50</color>
+    <color name="UOSHUB_Primary">#2d7d32</color>
+    <color name="UOSHUB_foreground">#374650</color>
+</resources>

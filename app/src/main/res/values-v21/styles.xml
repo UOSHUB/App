@@ -1,0 +1,10 @@
+<resources>
+    <style name="UOSHUB_theme" parent="AppTheme">
+        <item name="colorPrimary">@color/UOSHUB_accent</item>
+        <item name="colorPrimaryDark">@color/UOSHUB_Primary</item>
+        <item name="android:colorForeground">@color/UOSHUB_foreground</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@android:color/background_light</item>
+        <item name="android:statusBarColor">@color/UOSHUB_Primary</item>
+    </style>
+</resources>

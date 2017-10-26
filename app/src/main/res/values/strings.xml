@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">UOSHUB</string>
+    <string name="title_activity_main">UOSHUB</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="prompt_student_id">Student ID</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_log_in">LOGIN</string>
+    <string name="error_invalid_id">This ID is invalid</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="title_announcements">Announcements</string>
+    <string name="title_courses">Courses</string>
+    <string name="title_account">Account</string>
+    <string name="announcements_fragment">This is the Announcements Fragment</string>
+    <string name="courses_fragment">This is the Courses Fragment</string>
+    <string name="account_fragment">This is the Account Fragment</string>
+</resources>
