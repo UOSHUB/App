@@ -5,4 +5,7 @@
     <color name="UOSHUB_accent">#4baf50</color>
     <color name="UOSHUB_Primary">#2d7d32</color>
     <color name="UOSHUB_foreground">#374650</color>
+    <color name="colorRounded">#4baf50</color>
+    <color name="colorRoundedAlt">#ff0900</color>
+
 </resources>

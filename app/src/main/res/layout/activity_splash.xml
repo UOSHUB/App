@@ -12,5 +12,5 @@
         android:id="@+id/splash_screen_logo"
         android:layout_width="150dp"
         android:layout_height="151dp"
-        app:srcCompat="@drawable/uoshub_icon"/>
+        app:srcCompat="@drawable/uoshub_logo"/>
 </LinearLayout>

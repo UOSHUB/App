@@ -6,8 +6,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/uoshub_icon2"
-        android:roundIcon="@mipmap/uoshub_icon2"
+        android:icon="@mipmap/uoshub_icon_round"
+        android:roundIcon="@mipmap/uoshub_icon_round"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/UOSHUB_theme">

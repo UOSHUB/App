@@ -1,0 +1,22 @@
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <layer-list>
+            <!-- SHADOW LAYER -->
+            <item>
+                <shape>
+                    <solid android:color="#66000000"/>
+                    <corners android:radius="90dp"/>
+                </shape>
+            </item>
+            <!-- CONTENT LAYER -->
+            <item>
+                <shape>
+                    <solid android:color="@color/colorAccent"/>
+                    <corners android:radius="90dp"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

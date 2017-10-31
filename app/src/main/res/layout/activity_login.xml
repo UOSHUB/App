@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="baxzel.uoshub.LoginActivity">
@@ -15,55 +13,58 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <ImageView
             android:id="@+id/login_activity_logo"
-            android:layout_width="270dp"
-            android:layout_height="90dp"
-            android:src="@drawable/uoshub_newlogotext"/>
+            android:layout_width="290dp"
+            android:layout_height="120dp"
+            android:src="@drawable/uoshub_logotext_alt">
+        </ImageView>
 
-        <android.support.design.widget.TextInputLayout
+        <EditText
+            android:id="@+id/student_id"
+            android:hint="@string/prompt_student_id"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/student_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:hint="@string/prompt_student_id"
-                android:inputType="text">
-            </EditText>
-
-        </android.support.design.widget.TextInputLayout>
+            android:layout_height="48dp"
+            android:background="@drawable/rounded_textview"
+            android:fontFamily="sans-serif"
+            android:inputType="textVisiblePassword">
+        </EditText>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:hintEnabled="false"
             app:passwordToggleEnabled="true">
 
             <EditText
                 android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
                 android:hint="@string/prompt_password"
-                android:imeActionId="@+id/login"
-                android:imeOptions="actionUnspecified"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/rounded_textview"
+                android:fontFamily="sans-serif"
                 android:inputType="textPassword">
             </EditText>
-
         </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/login_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginTop="16dp"
-            android:background="@color/UOSHUB_accent"
-            android:text="@string/action_log_in"
-            android:textColor="@android:color/white"/>
+            android:background="@drawable/rounded_button"
+            android:fontFamily="sans-serif"
+            android:text="@string/login_button_text"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:textStyle="bold">
+        </Button>
 
     </LinearLayout>
 </RelativeLayout>
