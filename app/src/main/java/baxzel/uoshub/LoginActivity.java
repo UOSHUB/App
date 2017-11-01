@@ -42,11 +42,6 @@ public class LoginActivity extends AppCompatActivity{
         mLoginButton = (Button) findViewById(R.id.login_button);
         mRequestQueue = Volley.newRequestQueue(this);
 
-        /*String theStringId = mId.getText().toString();
-        String theStringPassword = mPassword.getText().toString();
-        if(theStringId.length()==9 && (theStringId.startsWith("u") || theStringId.startsWith("u")))
-        if(theStringPassword.length()>0)*/
-
         findViewById(R.id.student_id).setOnFocusChangeListener(new View.OnFocusChangeListener(){
             public void onFocusChange(View v, boolean hasFocus){
                 String StringId = mId.getText().toString();
@@ -82,13 +77,16 @@ public class LoginActivity extends AppCompatActivity{
         CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
 
         mLoginButton.setOnClickListener(new View.OnClickListener(){
+            String theStringId = mId.getText().toString();
+            String theStringPassword = mPassword.getText().toString();
             public void onClick(View v){
                 Log.i("Volley", "Sending Request");
                 mStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>(){
                     public void onResponse(String response){
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
-                }, new Response.ErrorListener(){
+                }
+                , new Response.ErrorListener(){
                     public void onErrorResponse(VolleyError error){
                         Log.d("JSON error", error.toString());
                     }
