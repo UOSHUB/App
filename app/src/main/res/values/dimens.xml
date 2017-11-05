@@ -6,5 +6,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="design_bottom_navigation_text_size">10sp</dimen>
     <dimen name="design_bottom_navigation_active_text_size">10sp</dimen>
-    <dimen name="design_bottom_navigation_height">55dp</dimen>
+    <dimen name="design_bottom_navigation_height">53dp</dimen>
 </resources>

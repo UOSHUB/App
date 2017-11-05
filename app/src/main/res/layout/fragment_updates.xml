@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".layout.CoursesFragment">
+    tools:context=".layout.UpdatesFragment">
 
     <ListView
-        android:id="@+id/courses_list"
+        android:id="@+id/updates_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>
@@ -20,7 +20,6 @@
             android:id="@+id/item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
             android:layout_marginLeft="18dp"
             android:layout_marginTop="6dp"
             android:textSize="16sp"
@@ -30,7 +29,6 @@
             android:id="@+id/sub_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
             android:layout_marginLeft="18dp"
             android:layout_marginBottom="6dp"
             android:textSize="15sp"/>

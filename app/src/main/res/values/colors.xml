@@ -7,5 +7,6 @@
     <color name="UOSHUB_foreground">#374650</color>
     <color name="colorRounded">#4baf50</color>
     <color name="colorRoundedAlt">#ff0900</color>
-
+    <color name="controlHighlight">#bef5c3</color>
+    <color name="white">#ffffff</color>
 </resources>

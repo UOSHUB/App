@@ -22,7 +22,7 @@
             android:id="@+id/login_activity_logo"
             android:layout_width="290dp"
             android:layout_height="120dp"
-            android:src="@drawable/uoshub_logotext_alt">
+            android:src="@drawable/uoshub_logotext_alt3">
         </ImageView>
 
         <EditText
