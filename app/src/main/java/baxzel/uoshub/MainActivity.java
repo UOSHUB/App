@@ -9,9 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-
 import java.lang.reflect.Field;
-
 import baxzel.uoshub.layout.CoursesFragment;
 import baxzel.uoshub.layout.DeadlinesFragment;
 import baxzel.uoshub.layout.EmailFragment;
@@ -33,7 +31,7 @@ public class MainActivity extends AppCompatActivity{
 
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
         //For making the bottom nav icons of same size when active
-        try {
+        try{
             Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
             shiftingMode.setAccessible(true);
             shiftingMode.setBoolean(menuView, false);
@@ -44,9 +42,9 @@ public class MainActivity extends AppCompatActivity{
                 // set once again checked value, so view will be updated
                 item.setChecked(item.getItemData().isChecked());
             }
-        } catch (NoSuchFieldException e) {
+        } catch (NoSuchFieldException e){
             Log.e("ERROR NO SUCH FIELD", "Unable to get shift mode field");
-        } catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e){
             Log.e("ERROR ILLEGAL ALG", "Unable to change value of shift mode");
         }
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,7 +17,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
@@ -28,18 +26,19 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity{
     private EditText mId, mPassword;
     private Button mLoginButton;
-    private RequestQueue mRequestQueue;
-    private static final String URL = "https://www.uoshub.com/api/login/";
+    public static RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
+    private static final String URL = "https://www.uoshub.com/api/login/";
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         mId = (EditText) findViewById(R.id.student_id);
         mPassword = (EditText) findViewById(R.id.password);
         mLoginButton = (Button) findViewById(R.id.login_button);
-        mRequestQueue = Volley.newRequestQueue(this);
+
+        if(mRequestQueue == null)
+            mRequestQueue = Volley.newRequestQueue(this);
 
         findViewById(R.id.student_id).setOnFocusChangeListener(new View.OnFocusChangeListener(){
             public void onFocusChange(View v, boolean hasFocus){
@@ -73,11 +72,12 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
-        CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
+        CookieManager cookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
+        CookieHandler.setDefault(cookieManager);
 
         mLoginButton.setOnClickListener(new View.OnClickListener(){
-            String theStringId = mId.getText().toString();
-            String theStringPassword = mPassword.getText().toString();
+            //String theStringId = mId.getText().toString();
+            //String theStringPassword = mPassword.getText().toString();
             public void onClick(View v){
                 Log.i("Volley", "Sending Request");
                 mStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>(){
@@ -92,8 +92,8 @@ public class LoginActivity extends AppCompatActivity{
                 }){
                     protected Map<String, String> getParams() throws AuthFailureError{
                         HashMap<String, String> mHashMap = new HashMap<>();
-                        mHashMap.put("sid", mId.getText().toString());
-                        mHashMap.put("pin", mPassword.getText().toString());
+                        mHashMap.put("sid","U14112207"); //mId.getText().toString());
+                        mHashMap.put("pin", "WayToFuture188"); //mPassword.getText().toString());
                         return mHashMap;
                     }
                 };

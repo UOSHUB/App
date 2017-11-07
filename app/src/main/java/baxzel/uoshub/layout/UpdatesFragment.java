@@ -1,5 +1,4 @@
 package baxzel.uoshub.layout;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -8,78 +7,78 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-
+import baxzel.uoshub.LoginActivity;
 import baxzel.uoshub.R;
 
 public class UpdatesFragment extends Fragment{
-    RequestQueue coursesRequestQueue;
-    private static final String URL = "https://www.uoshub.com/api/terms/201710/";
+    private static final String URL = "https://www.uoshub.com/api/updates/";
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         if (container != null)
             container.removeAllViews();
 
-        coursesRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        if(LoginActivity.mRequestQueue == null)
+            LoginActivity.mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
-        final View v = inflater.inflate(R.layout.fragment_courses, container, false);
+        final View v = inflater.inflate(R.layout.fragment_updates, container, false);
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
-                new Response.Listener<JSONObject>(){
-                    public void onResponse(JSONObject response){
-                        try{
-                            ListView resultsListView = (ListView) v.findViewById(R.id.courses_list);
-                            HashMap<String, String> mHashMap = new HashMap<>();
-                            for(Iterator<String> iter = response.keys(); iter.hasNext();){
-                                String key = iter.next();
-                                JSONObject course = response.getJSONObject(key);
-                                String theTitle = course.getString("title");
-                                String theCRN = course.getString("crn");
-                                mHashMap.put(theTitle, theCRN);
-                            }
-                            List<LinkedHashMap<String, String>> mList = new ArrayList<>();
-                            SimpleAdapter mSimpleAdapter = new SimpleAdapter(getContext(), mList, R.layout.fragment_courses,
-                                    new String[]{"First Line", "Second Line"},
-                                    new int[]{R.id.item, R.id.sub_item});
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
+            new Response.Listener<JSONArray>(){
+            public void onResponse(JSONArray response){
+                Log.d("response" , response.toString());
+                try{
+                    ListView resultsListView = (ListView) v.findViewById(R.id.updates_list);
+                    List<LinkedHashMap<String, String>> mList = new ArrayList<>();
+                    SimpleAdapter mSimpleAdapter = new SimpleAdapter(getContext(), mList, R.layout.fragment_updates,
+                        new String[]{"First Line", "Second Line"},
+                        new int[]{R.id.item, R.id.sub_item});
 
-                            Iterator mIterator = mHashMap.entrySet().iterator();
-                            while(mIterator.hasNext()){
-                                LinkedHashMap<String, String> resultsmap = new LinkedHashMap<>();
-                                Map.Entry pair = (Map.Entry)mIterator.next();
-                                resultsmap.put("First Line", pair.getKey().toString());
-                                resultsmap.put("Second Line", pair.getValue().toString());
-                                mList.add(resultsmap);
-                            }
-                            resultsListView.setAdapter(mSimpleAdapter);
+                        SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 
-                        }catch (JSONException e){
+                    for(int i=0;i<response.length();i++){
+                        LinkedHashMap<String, String> resultsmap = new LinkedHashMap<>();
+                        String theCourse = new JSONObject(response.get(i).toString()).get("course").toString();
+                        String theEvent = new JSONObject(response.get(i).toString()).get("event").toString();
+
+                        String theTime = new JSONObject(response.get(i).toString()).get("time").toString();
+                        Date date = mDateFormat.parse(theTime);
+
+                        resultsmap.put("First Line", date.toString() + "          " + theCourse);
+
+                        String theTitle = new JSONObject(response.get(i).toString()).get("title").toString();
+                        resultsmap.put("Second Line", theTitle + "          " + theEvent);
+                        mList.add(resultsmap);
+                        }
+                        resultsListView.setAdapter(mSimpleAdapter);
+
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        } catch (ParseException e) {
                             e.printStackTrace();
                         }
                     }
                 },
                 new Response.ErrorListener(){
                     public void onErrorResponse(VolleyError error){
-                        Log.d("VOLLEY", "ERROR");
+                        Log.d("VOLLEY", error.getMessage());
                     }
                 }
         );
-        coursesRequestQueue.add(jsonObjectRequest);
+        LoginActivity.mRequestQueue.add(jsonObjectRequest);
         return v;
     }
 }

@@ -10,7 +10,6 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -26,17 +25,18 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import baxzel.uoshub.LoginActivity;
 import baxzel.uoshub.R;
 
 public class DeadlinesFragment extends Fragment{
-    RequestQueue deadlinesRequestQueue;
-    private static final String URL = "https://www.uoshub.com/api/terms/201710/content/";
+    private static final String URL = "https://www.uoshub.com/api/terms/201710/";
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         if (container != null)
             container.removeAllViews();
 
-        deadlinesRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        if(LoginActivity.mRequestQueue == null)
+            LoginActivity.mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
         final View v = inflater.inflate(R.layout.fragment_deadlines, container, false);
 
@@ -79,7 +79,7 @@ public class DeadlinesFragment extends Fragment{
                     }
                 }
         );
-        deadlinesRequestQueue.add(jsonObjectRequest);
+        LoginActivity.mRequestQueue.add(jsonObjectRequest);
         return v;
     }
 }
