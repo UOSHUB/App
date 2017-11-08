@@ -8,29 +8,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
-
+import baxzel.uoshub.Declutterer;
 import baxzel.uoshub.LoginActivity;
 import baxzel.uoshub.R;
 
 public class EmailFragment extends Fragment{
-    private static final String URL = "https://www.uoshub.com/api/emails/personal/";
+    String URL = new Declutterer().URLHolder("Emails");
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         if (container != null)

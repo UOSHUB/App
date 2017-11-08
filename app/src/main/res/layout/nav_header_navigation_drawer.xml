@@ -1,0 +1,39 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="34dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <TextView
+        android:id="@+id/navigationDrawerStudentName"
+        android:text="@string/student_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+    <TextView
+        android:id="@+id/navigationDrawerStudentID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/student_id"/>
+
+    <TextView
+        android:id="@+id/navigationDrawerStudentMajor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/student_major"/>
+
+    <TextView
+        android:id="@+id/navigationDrawerStudentCollege"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/student_college"/>
+
+</LinearLayout>

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -17,9 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import java.net.CookieHandler;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +27,9 @@ public class LoginActivity extends AppCompatActivity{
     private Button mLoginButton;
     public static RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
-    private static final String URL = "https://www.uoshub.com/api/login/";
+    //private static final String URL = "https://www.uoshub.com/api/login/";
+
+    String URL = new Declutterer().URLHolder("Login");
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -72,8 +73,7 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
-        CookieManager cookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
-        CookieHandler.setDefault(cookieManager);
+        new Declutterer().Cookier();
 
         mLoginButton.setOnClickListener(new View.OnClickListener(){
             //String theStringId = mId.getText().toString();

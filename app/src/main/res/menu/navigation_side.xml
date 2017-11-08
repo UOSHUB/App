@@ -1,0 +1,21 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navigation_calendar"
+            android:icon="@drawable/icon_calendar"
+            android:title="@string/title_calendar"/>
+        <item
+            android:id="@+id/navigation_grades"
+            android:icon="@drawable/icon_grades"
+            android:title="@string/title_grades"/>
+        <item
+            android:id="@+id/navigation_holds"
+            android:icon="@drawable/icon_holds"
+            android:title="@string/title_holds"/>
+    </group>
+
+</menu>

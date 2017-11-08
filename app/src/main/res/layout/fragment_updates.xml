@@ -5,23 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".layout.UpdatesFragment">
 
-    <ListView
-        android:id="@+id/updates_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
-
-    <!--<GridView-->
-        <!--android:id="@+id/updates_list"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:numColumns="2"-->
-    <!--/>-->
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/updates_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
 
         <TextView
             android:id="@+id/item"
@@ -37,10 +30,11 @@
             android:id="@+id/sub_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
             android:layout_marginRight="18dp"
             android:layout_marginLeft="18dp"
             android:layout_marginBottom="6dp"
             android:textSize="15sp"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 </FrameLayout>

@@ -1,4 +1,5 @@
 package baxzel.uoshub.layout;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -21,14 +22,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
+import baxzel.uoshub.Declutterer;
 import baxzel.uoshub.LoginActivity;
 import baxzel.uoshub.R;
 
 public class UpdatesFragment extends Fragment{
-    private static final String URL = "https://www.uoshub.com/api/updates/";
+    String URL = new Declutterer().URLHolder("Updates");
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        if (container != null)
+        if(container != null)
             container.removeAllViews();
 
         if(LoginActivity.mRequestQueue == null)
@@ -51,23 +53,23 @@ public class UpdatesFragment extends Fragment{
 
                     for(int i=0;i<response.length();i++){
                         LinkedHashMap<String, String> resultsmap = new LinkedHashMap<>();
-                        String theCourse = new JSONObject(response.get(i).toString()).get("course").toString();
-                        String theEvent = new JSONObject(response.get(i).toString()).get("event").toString();
+//                        String theCourse = new JSONObject(response.get(i).toString()).get("course").toString();
+//                        String theEvent = new JSONObject(response.get(i).toString()).get("event").toString();
 
                         String theTime = new JSONObject(response.get(i).toString()).get("time").toString();
                         Date date = mDateFormat.parse(theTime);
 
-                        resultsmap.put("First Line", date.toString() + "          " + theCourse);
+                        resultsmap.put("First Line", date.toString());
 
                         String theTitle = new JSONObject(response.get(i).toString()).get("title").toString();
-                        resultsmap.put("Second Line", theTitle + "          " + theEvent);
+                        resultsmap.put("Second Line", theTitle);
                         mList.add(resultsmap);
                         }
                         resultsListView.setAdapter(mSimpleAdapter);
 
                         } catch (JSONException e){
                             e.printStackTrace();
-                        } catch (ParseException e) {
+                        } catch (ParseException e){
                             e.printStackTrace();
                         }
                     }

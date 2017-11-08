@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">UOSHUB</string>
     <string name="title_activity_main">UOSHUB</string>
-    <string name="title_activity_splash">Splash Activity</string>
     <string name="prompt_student_id">Student ID</string>
     <string name="prompt_password">Password</string>
     <string name="login_button_text">LOGIN</string>
@@ -10,4 +9,13 @@
     <string name="title_account">Account</string>
     <string name="title_email">Email</string>
     <string name="title_deadlines">Deadlines</string>
+    <string name="title_calendar">Calendar</string>
+    <string name="title_grades">Grades</string>
+    <string name="title_holds">Holds</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="student_name">Student Name</string>
+    <string name="student_id">Student ID</string>
+    <string name="student_major">Student Major</string>
+    <string name="student_college">Student College</string>
 </resources>

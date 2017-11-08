@@ -25,11 +25,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import baxzel.uoshub.Declutterer;
 import baxzel.uoshub.LoginActivity;
 import baxzel.uoshub.R;
 
 public class DeadlinesFragment extends Fragment{
-    private static final String URL = "https://www.uoshub.com/api/terms/201710/";
+    String URL = new Declutterer().URLHolder("Deadlines");
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         if (container != null)
@@ -43,6 +44,7 @@ public class DeadlinesFragment extends Fragment{
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONObject>(){
                     public void onResponse(JSONObject response){
+                        Log.d("response", response.toString());
                         try{
                             ListView resultsListView = (ListView) v.findViewById(R.id.deadlines_list);
                             HashMap<String, String> mHashMap = new HashMap<>();
@@ -72,10 +74,9 @@ public class DeadlinesFragment extends Fragment{
                             e.printStackTrace();
                         }
                     }
-                },
-                new Response.ErrorListener(){
+                }, new Response.ErrorListener(){
                     public void onErrorResponse(VolleyError error){
-                        Log.d("VOLLEY", "ERROR");
+                        Log.d("VOLLEY", error.getMessage());
                     }
                 }
         );
