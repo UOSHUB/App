@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity{
                 Log.i("Volley", "Sending Request");
                 mStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>(){
                     public void onResponse(String response){
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
                     }
                 }
                 , new Response.ErrorListener(){

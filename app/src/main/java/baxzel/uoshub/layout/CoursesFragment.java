@@ -75,7 +75,7 @@ public class CoursesFragment extends Fragment{
             },
             new Response.ErrorListener(){
                 public void onErrorResponse(VolleyError error){
-                    Log.d("VOLLEY", "ERROR");
+                    Log.d("VOLLEY", error.getMessage());
                 }
             }
         );
