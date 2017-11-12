@@ -28,7 +28,7 @@ import baxzel.uoshub.LoginActivity;
 import baxzel.uoshub.R;
 
 public class HoldsFragment extends Fragment{
-    String URL = new Declutterer().URLHolder("Holds");
+    String URL = Declutterer.URLHolder("Holds");
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         if(container != null)
@@ -57,7 +57,6 @@ public class HoldsFragment extends Fragment{
                                 resultsmap.put("First Line", theCourse);
 
                                 String theOutOf = new JSONObject(response.get(i).toString()).get("outOf").toString();
-
                                 String theGrade = new JSONObject(response.get(i).toString()).get("grade").toString();
                                 resultsmap.put("Second Line", theGrade + "/" + theOutOf);
 
@@ -72,7 +71,7 @@ public class HoldsFragment extends Fragment{
                 },
                 new Response.ErrorListener(){
                     public void onErrorResponse(VolleyError error){
-                        Log.d("VOLLEY", error.getMessage());
+                        Log.d("VOLLEY", error.getMessage() + "");
                     }
                 }
         );

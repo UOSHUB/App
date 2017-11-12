@@ -30,7 +30,7 @@ import baxzel.uoshub.LoginActivity;
 import baxzel.uoshub.R;
 
 public class DeadlinesFragment extends Fragment{
-    String URL = new Declutterer().URLHolder("Deadlines");
+    String URL = Declutterer.URLHolder("Deadlines");
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         if (container != null)
@@ -76,7 +76,7 @@ public class DeadlinesFragment extends Fragment{
                     }
                 }, new Response.ErrorListener(){
                     public void onErrorResponse(VolleyError error){
-                        Log.d("VOLLEY", error.getMessage());
+                        Log.d("VOLLEY", error.getMessage() + "");
                     }
                 }
         );

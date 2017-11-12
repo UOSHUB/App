@@ -27,9 +27,7 @@ public class LoginActivity extends AppCompatActivity{
     private Button mLoginButton;
     public static RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
-    //private static final String URL = "https://www.uoshub.com/api/login/";
-
-    String URL = new Declutterer().URLHolder("Login");
+    String URL = Declutterer.URLHolder("Login");
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -76,8 +74,18 @@ public class LoginActivity extends AppCompatActivity{
         new Declutterer().Cookier();
 
         mLoginButton.setOnClickListener(new View.OnClickListener(){
-            //String theStringId = mId.getText().toString();
-            //String theStringPassword = mPassword.getText().toString();
+//          String theStringId = mId.getText().toString();
+//          String theStringPassword = mPassword.getText().toString();
+//      if(theStringId.startsWith("u") || theStringId.startsWith("U"))
+//          if(theStringId.length()==9)
+//          for(int i=1; i<9; i++)
+//          if(theStringId.charAt(i)>=0 && theStringId.charAt(i)<=9)
+//          if(theStringPassword.length()>0)
+//          Toast.makeText(this, "ID must start with 'u' followed by 8 numbers", Toast.LENGTH_LONG).show();
+//          Toast.makeText(this, "ID cannnot be null", Toast.LENGTH_LONG).show();
+//          Toast.makeText(this, "Password cannot be null", Toast.LENGTH_LONG).show();
+//          Toast.makeText(this, "Wrong ID or Password", Toast.LENGTH_LONG).show();
+
             public void onClick(View v){
                 Log.i("Volley", "Sending Request");
                 mStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>(){
@@ -87,7 +95,7 @@ public class LoginActivity extends AppCompatActivity{
                 }
                 , new Response.ErrorListener(){
                     public void onErrorResponse(VolleyError error){
-                        Log.d("JSON error", error.toString());
+                        Log.d("JSON error", error.toString() + "");
                     }
                 }){
                     protected Map<String, String> getParams() throws AuthFailureError{

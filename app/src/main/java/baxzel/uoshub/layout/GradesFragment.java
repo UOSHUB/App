@@ -28,7 +28,7 @@ import baxzel.uoshub.LoginActivity;
 import baxzel.uoshub.R;
 
 public class GradesFragment extends Fragment{
-    String URL = new Declutterer().URLHolder("Grades");
+    String URL = Declutterer.URLHolder("Grades");
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         if(container != null)
@@ -40,41 +40,42 @@ public class GradesFragment extends Fragment{
         final View v = inflater.inflate(R.layout.fragment_grades, container, false);
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
-                new Response.Listener<JSONArray>(){
-                    public void onResponse(JSONArray response){
-                        Log.d("response" , response.toString());
-                        try{
-                            ListView resultsListView = (ListView) v.findViewById(R.id.grades_list);
-                            List<LinkedHashMap<String, String>> mList = new ArrayList<>();
-                            SimpleAdapter mSimpleAdapter = new SimpleAdapter(getContext(), mList, R.layout.fragment_grades,
-                                    new String[]{"First Line", "Second Line"},
-                                    new int[]{R.id.item, R.id.sub_item});
+            new Response.Listener<JSONArray>(){
+                public void onResponse(JSONArray response){
+                    Log.d("response" , response.toString());
+                    try{
+                        ListView resultsListView = (ListView) v.findViewById(R.id.grades_list);
+                        List<LinkedHashMap<String, String>> mList = new ArrayList<>();
+                        SimpleAdapter mSimpleAdapter = new SimpleAdapter(getContext(), mList, R.layout.fragment_grades,
+                                new String[]{"First Line", "Second Line"},
+                                new int[]{R.id.item, R.id.sub_item});
 
-                            for(int i=0;i<response.length();i++){
-                                LinkedHashMap<String, String> resultsmap = new LinkedHashMap<>();
+                        for(int i=0;i<response.length();i++){
+                            LinkedHashMap<String, String> resultsmap = new LinkedHashMap<>();
 
-                                String theCourse = new JSONObject(response.get(i).toString()).get("course").toString();
-                                resultsmap.put("First Line", theCourse);
+                            String theCourse = new JSONObject(response.get(i).toString()).get("course").toString();
+                            resultsmap.put("First Line", theCourse);
 
-                                String theOutOf = new JSONObject(response.get(i).toString()).get("outOf").toString();
+                            String theOutOf = new JSONObject(response.get(i).toString()).get("outOf").toString();
+                            String theGrade = new JSONObject(response.get(i).toString()).get("grade").toString();
+                            String theTitle = new JSONObject(response.get(i).toString()).get("title").toString();
 
-                                String theGrade = new JSONObject(response.get(i).toString()).get("grade").toString();
-                                resultsmap.put("Second Line", theGrade + "/" + theOutOf);
+                            resultsmap.put("Second Line", theTitle + ": " + theGrade + "/" + theOutOf);
 
-                                mList.add(resultsmap);
-                            }
-                            resultsListView.setAdapter(mSimpleAdapter);
-
-                        } catch (JSONException e){
-                            e.printStackTrace();
+                            mList.add(resultsmap);
                         }
-                    }
-                },
-                new Response.ErrorListener(){
-                    public void onErrorResponse(VolleyError error){
-                        Log.d("VOLLEY", error.getMessage());
+                        resultsListView.setAdapter(mSimpleAdapter);
+
+                    } catch (JSONException e){
+                        e.printStackTrace();
                     }
                 }
+            },
+            new Response.ErrorListener(){
+                public void onErrorResponse(VolleyError error){
+                    Log.d("VOLLEY", error.getMessage() + "");
+                }
+            }
         );
         LoginActivity.mRequestQueue.add(jsonObjectRequest);
         return v;

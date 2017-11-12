@@ -8,26 +8,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
+
 import baxzel.uoshub.Declutterer;
 import baxzel.uoshub.LoginActivity;
 import baxzel.uoshub.R;
 
 public class UpdatesFragment extends Fragment{
-    String URL = new Declutterer().URLHolder("Updates");
+    String URL = Declutterer.URLHolder("Updates");
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         if(container != null)
@@ -38,7 +42,7 @@ public class UpdatesFragment extends Fragment{
 
         final View v = inflater.inflate(R.layout.fragment_updates, container, false);
 
-        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
             new Response.Listener<JSONArray>(){
             public void onResponse(JSONArray response){
                 Log.d("response" , response.toString());
@@ -51,19 +55,17 @@ public class UpdatesFragment extends Fragment{
 
                         SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 
-                    for(int i=0;i<response.length();i++){
-                        LinkedHashMap<String, String> resultsmap = new LinkedHashMap<>();
-//                        String theCourse = new JSONObject(response.get(i).toString()).get("course").toString();
-//                        String theEvent = new JSONObject(response.get(i).toString()).get("event").toString();
+                        for(int i=0;i<response.length();i++){
+                            LinkedHashMap<String, String> resultsmap = new LinkedHashMap<>();
 
-                        String theTime = new JSONObject(response.get(i).toString()).get("time").toString();
-                        Date date = mDateFormat.parse(theTime);
+                            String theTime = new JSONObject(response.get(i).toString()).get("time").toString();
+                            Date date = mDateFormat.parse(theTime);
 
-                        resultsmap.put("First Line", date.toString());
+                            resultsmap.put("First Line", date.toString());
 
-                        String theTitle = new JSONObject(response.get(i).toString()).get("title").toString();
-                        resultsmap.put("Second Line", theTitle);
-                        mList.add(resultsmap);
+                            String theTitle = new JSONObject(response.get(i).toString()).get("title").toString();
+                            resultsmap.put("Second Line", theTitle);
+                            mList.add(resultsmap);
                         }
                         resultsListView.setAdapter(mSimpleAdapter);
 
@@ -76,11 +78,11 @@ public class UpdatesFragment extends Fragment{
                 },
                 new Response.ErrorListener(){
                     public void onErrorResponse(VolleyError error){
-                        Log.d("VOLLEY", error.getMessage());
+                        Log.d("VOLLEY", error.getMessage() + "");
                     }
                 }
         );
-        LoginActivity.mRequestQueue.add(jsonObjectRequest);
+        LoginActivity.mRequestQueue.add(jsonArrayRequest);
         return v;
     }
 }

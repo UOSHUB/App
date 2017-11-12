@@ -27,7 +27,7 @@ import baxzel.uoshub.LoginActivity;
 import baxzel.uoshub.R;
 
 public class EmailFragment extends Fragment{
-    String URL = new Declutterer().URLHolder("Emails");
+    String URL = Declutterer.URLHolder("Emails");
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         if (container != null)
@@ -73,7 +73,7 @@ public class EmailFragment extends Fragment{
                 },
                 new Response.ErrorListener(){
                     public void onErrorResponse(VolleyError error){
-                        Log.d("VOLLEY", error.getMessage());
+                        Log.d("VOLLEY", error.getMessage() + "");
                     }
                 }
         );

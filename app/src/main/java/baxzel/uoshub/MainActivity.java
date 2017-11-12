@@ -14,8 +14,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Field;
+import java.util.Iterator;
 
 import baxzel.uoshub.layout.CoursesFragment;
 import baxzel.uoshub.layout.DeadlinesFragment;
@@ -23,6 +34,7 @@ import baxzel.uoshub.layout.EmailFragment;
 import baxzel.uoshub.layout.UpdatesFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+    String URL = Declutterer.URLHolder("Details");
     @SuppressLint("RestrictedApi")
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -36,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new UpdatesFragment()).commit();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -61,6 +75,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Log.e("ERROR ILLEGAL ALG", "Unable to change value of shift mode");
         }
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
+            new Response.Listener<JSONObject>(){
+                public void onResponse(JSONObject response){
+                    Log.d("response", response.toString());
+                    try{
+                        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                        View header = navigationView.getHeaderView(0);
+
+                        final TextView studentName = (TextView) header.findViewById(R.id.navigationDrawerStudentName);
+                        final TextView studentMajor = (TextView) header.findViewById(R.id.navigationDrawerStudentMajor);
+                        final TextView studentCollege = (TextView) header.findViewById(R.id.navigationDrawerStudentCollege);
+
+                        for(Iterator<String> iter = response.keys(); iter.hasNext();){
+                            String key = iter.next();
+                            JSONObject course = response.getJSONObject(key);
+                            String theName = course.getString("name");
+                            String theMajor = course.getString("major");
+                            String theCollege = course.getString("collage");
+
+                            studentName.setText(theName);
+                            studentMajor.setText(theMajor);
+                            studentCollege.setText(theCollege);
+                        }
+
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                }
+            },
+            new Response.ErrorListener(){
+                public void onErrorResponse(VolleyError error){
+                    Log.d("VOLLEY", error.getMessage() + "");
+                }
+            }
+        );
+        LoginActivity.mRequestQueue.add(jsonObjectRequest);
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -69,19 +121,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         public boolean onNavigationItemSelected(MenuItem item){
             switch(item.getItemId()){
                 case R.id.navigation_updates:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UpdatesFragment()).commit();
+                    getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new UpdatesFragment()).commit();
                     return true;
 
                 case R.id.navigation_courses:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CoursesFragment()).commit();
+                    getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new CoursesFragment()).commit();
                     return true;
 
                 case R.id.navigation_email:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EmailFragment()).commit();
+                    getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new EmailFragment()).commit();
                     return true;
 
                 case R.id.navigation_deadlines:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DeadlinesFragment()).commit();
+                    getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new DeadlinesFragment()).commit();
                     return true;
             }
             return false;
@@ -97,9 +149,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        /* Handle action bar item clicks here. The action bar wil automatically handle clicks
+        on the Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.*/
         int id = item.getItemId();
 
         return super.onOptionsItemSelected(item);
@@ -107,25 +158,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public boolean onNavigationItemSelected(MenuItem item){
         int id = item.getItemId();
+        Intent intent = new Intent(MainActivity.this, MinorActivity.class);
 
-        if(id == R.id.navigation_calendar){
-            startActivity(new Intent(MainActivity.this, MinorActivity.class));
-            new Declutterer().setCalendarFragment(true);
-            new Declutterer().setGradesFragment(false);
-            new Declutterer().setHoldsFragment(false);
-        }
-        else if(id == R.id.navigation_grades){
-            startActivity(new Intent(MainActivity.this, MinorActivity.class));
-            new Declutterer().setCalendarFragment(false);
-            new Declutterer().setGradesFragment(true);
-            new Declutterer().setHoldsFragment(false);
-        }
-        else if(id == R.id.navigation_holds){
-            startActivity(new Intent(MainActivity.this, MinorActivity.class));
-            new Declutterer().setCalendarFragment(false);
-            new Declutterer().setGradesFragment(false);
-            new Declutterer().setHoldsFragment(true);
-        }
+        if(id == R.id.navigation_calendar)
+            intent.putExtra("fragmentType","calendar");
+        else if(id == R.id.navigation_grades)
+            intent.putExtra("fragmentType","grades");
+        else if(id == R.id.navigation_holds)
+            intent.putExtra("fragmentType","holds");
+
+        startActivity(intent);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

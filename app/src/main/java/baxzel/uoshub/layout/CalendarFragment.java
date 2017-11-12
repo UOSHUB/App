@@ -28,7 +28,7 @@ import baxzel.uoshub.LoginActivity;
 import baxzel.uoshub.R;
 
 public class CalendarFragment extends Fragment{
-    String URL = new Declutterer().URLHolder("Calendar");
+    String URL = Declutterer.URLHolder("Calendar");
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         if(container != null)
@@ -70,7 +70,7 @@ public class CalendarFragment extends Fragment{
                 },
                 new Response.ErrorListener(){
                     public void onErrorResponse(VolleyError error){
-                        Log.d("VOLLEY", error.getMessage());
+                        Log.d("VOLLEY", error.getMessage() + "");
                     }
                 }
         );

@@ -26,7 +26,7 @@ import baxzel.uoshub.LoginActivity;
 import baxzel.uoshub.R;
 
 public class CoursesFragment extends Fragment{
-    String URL = new Declutterer().URLHolder("Courses");
+    String URL = Declutterer.URLHolder("Courses");
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         if (container != null)
@@ -49,6 +49,7 @@ public class CoursesFragment extends Fragment{
                             JSONObject course = response.getJSONObject(key);
                             String theCRN = course.getString("crn");
                             String theTitle = course.getString("title");
+
                             mHashMap.put(theCRN, theTitle);
                         }
 
@@ -75,7 +76,7 @@ public class CoursesFragment extends Fragment{
             },
             new Response.ErrorListener(){
                 public void onErrorResponse(VolleyError error){
-                    Log.d("VOLLEY", error.getMessage());
+                    Log.d("VOLLEY", error.getMessage() + "");
                 }
             }
         );
