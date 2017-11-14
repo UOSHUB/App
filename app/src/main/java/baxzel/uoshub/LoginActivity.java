@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -28,6 +29,7 @@ public class LoginActivity extends AppCompatActivity{
     public static RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
     String URL = Declutterer.URLHolder("Login");
+    Context mContext;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -35,6 +37,7 @@ public class LoginActivity extends AppCompatActivity{
         mId = (EditText) findViewById(R.id.student_id);
         mPassword = (EditText) findViewById(R.id.password);
         mLoginButton = (Button) findViewById(R.id.login_button);
+        mContext = getApplicationContext();
 
         if(mRequestQueue == null)
             mRequestQueue = Volley.newRequestQueue(this);
@@ -71,41 +74,69 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
-        new Declutterer().Cookier();
+        Declutterer.Cookier();
 
         mLoginButton.setOnClickListener(new View.OnClickListener(){
-//          String theStringId = mId.getText().toString();
-//          String theStringPassword = mPassword.getText().toString();
-//      if(theStringId.startsWith("u") || theStringId.startsWith("U"))
-//          if(theStringId.length()==9)
-//          for(int i=1; i<9; i++)
-//          if(theStringId.charAt(i)>=0 && theStringId.charAt(i)<=9)
-//          if(theStringPassword.length()>0)
-//          Toast.makeText(this, "ID must start with 'u' followed by 8 numbers", Toast.LENGTH_LONG).show();
-//          Toast.makeText(this, "ID cannnot be null", Toast.LENGTH_LONG).show();
-//          Toast.makeText(this, "Password cannot be null", Toast.LENGTH_LONG).show();
-//          Toast.makeText(this, "Wrong ID or Password", Toast.LENGTH_LONG).show();
-
             public void onClick(View v){
-                Log.i("Volley", "Sending Request");
+                String theStringId = mId.getText().toString();
+                String theStringPassword = mPassword.getText().toString();
+                String errors = "";
+                boolean sendRequestU = false;
+                boolean sendRequestP = false;
+
+                if(theStringId.startsWith("u") || theStringId.startsWith("U")){
+                    if(theStringId.length() == 9){
+                        boolean allNums = true;
+                        for(int i = 1; i < 9; i++)
+                            if(!Character.isDigit(theStringId.charAt(i))){
+                                allNums = false;
+                                break;
+                            }
+                        if(allNums)
+                            sendRequestU = true;
+                        else
+                            errors += "ID must have u followed by 8 digits\n";
+                    } else
+                        errors += "ID must be 9 character long\n";
+                } else
+                    errors += "ID must start with \'u\'\n";
+
+                if(theStringPassword.length() > 0)
+                    sendRequestP = true;
+                else
+                    errors += "Password cannot be null\n";
+
+                if(errors != "")
+                    Toast.makeText(mContext, errors.substring(0,errors.length()-1), Toast.LENGTH_LONG).show();
+
+                if(sendRequestU && sendRequestP){
+                    Log.i("Volley", "Sending Request");
+
                 mStringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>(){
-                    public void onResponse(String response){
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                    public void onResponse(String response) {
+                        Log.i("response 1", response);
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
-                }
-                , new Response.ErrorListener(){
-                    public void onErrorResponse(VolleyError error){
+                }, new Response.ErrorListener(){
+                    public void onErrorResponse(VolleyError error) {
                         Log.d("JSON error", error.toString() + "");
+                        if(error.toString().contains("Unable to resolve host"))
+                            Toast.makeText(mContext, "Make sure to have internet connection", Toast.LENGTH_LONG).show();
+                        if(error.toString().contains("com.android.volley.ServerError"))
+                            Toast.makeText(mContext, "Wrong password and ID match", Toast.LENGTH_LONG).show();
+                        if(error.toString().contains("com.android.volley.TimeoutError"))
+                            Toast.makeText(mContext, "Timeout error make sure of the password and try again", Toast.LENGTH_LONG).show();
                     }
-                }){
+                }) {
                     protected Map<String, String> getParams() throws AuthFailureError{
                         HashMap<String, String> mHashMap = new HashMap<>();
-                        mHashMap.put("sid","U14112207"); //mId.getText().toString());
-                        mHashMap.put("pin", "WayToFuture188"); //mPassword.getText().toString());
+                        mHashMap.put("sid", mId.getText().toString());
+                        mHashMap.put("pin", mPassword.getText().toString());
                         return mHashMap;
                     }
                 };
                 mRequestQueue.add(mStringRequest);
+                }
             }
         });
     }

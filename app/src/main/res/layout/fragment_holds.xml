@@ -1,40 +1,35 @@
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".layout.HoldsFragment">
 
-    <RelativeLayout
+    <ListView
+        android:id="@+id/holds_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+    </ListView>
 
-        <ListView
-            android:id="@+id/holds_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </ListView>
+    <TextView
+        android:id="@+id/item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="6dp"
+        android:textSize="16sp"
+        android:textColor="#000000"/>
 
-        <TextView
-            android:id="@+id/item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="18dp"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="6dp"
-            android:textSize="16sp"
-            android:textColor="#000000"/>
+    <TextView
+        android:id="@+id/sub_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginBottom="6dp"
+        android:textSize="15sp"/>
 
-        <TextView
-            android:id="@+id/sub_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="27dp"
-            android:layout_marginRight="18dp"
-            android:layout_marginLeft="18dp"
-            android:layout_marginBottom="6dp"
-            android:textSize="15sp"/>
-
-    </RelativeLayout>
-</FrameLayout>
+</RelativeLayout>

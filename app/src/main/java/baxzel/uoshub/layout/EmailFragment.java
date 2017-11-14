@@ -2,26 +2,31 @@ package baxzel.uoshub.layout;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
+
 import baxzel.uoshub.Declutterer;
 import baxzel.uoshub.LoginActivity;
 import baxzel.uoshub.R;
@@ -50,13 +55,16 @@ public class EmailFragment extends Fragment{
                                     new int[]{R.id.item, R.id.sub_item});
 
                             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+                            DateFormat df = new DateFormat();
+                            String outFormat = "EEEE dd-MM-yyyy hh:mm aa";
 
                             for(int i=0;i<response.length();i++){
                                 LinkedHashMap<String, String> resultsmap = new LinkedHashMap<>();
 
                                 String theTime = new JSONObject(response.get(i).toString()).get("time").toString();
                                 Date date = sf.parse(theTime);
-                                resultsmap.put("First Line", date.toString());
+
+                                resultsmap.put("First Line", String.valueOf(df.format(outFormat, date)));
 
                                 String theTitle = new JSONObject(response.get(i).toString()).get("title").toString();
                                 resultsmap.put("Second Line", theTitle);

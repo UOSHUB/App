@@ -2,6 +2,7 @@ package baxzel.uoshub.layout;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,20 +54,22 @@ public class UpdatesFragment extends Fragment{
                         new String[]{"First Line", "Second Line"},
                         new int[]{R.id.item, R.id.sub_item});
 
-                        SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+                    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+                    DateFormat df = new DateFormat();
+                    String outFormat = "EEEE dd-MM-yyyy hh:mm aa";
 
-                        for(int i=0;i<response.length();i++){
-                            LinkedHashMap<String, String> resultsmap = new LinkedHashMap<>();
+                    for(int i=0;i<response.length();i++){
+                        LinkedHashMap<String, String> resultsmap = new LinkedHashMap<>();
 
-                            String theTime = new JSONObject(response.get(i).toString()).get("time").toString();
-                            Date date = mDateFormat.parse(theTime);
+                        String theTime = new JSONObject(response.get(i).toString()).get("time").toString();
+                        Date date = sf.parse(theTime);
 
-                            resultsmap.put("First Line", date.toString());
+                        resultsmap.put("First Line", String.valueOf(df.format(outFormat, date)));
 
-                            String theTitle = new JSONObject(response.get(i).toString()).get("title").toString();
-                            resultsmap.put("Second Line", theTitle);
-                            mList.add(resultsmap);
-                        }
+                        String theTitle = new JSONObject(response.get(i).toString()).get("title").toString();
+                        resultsmap.put("Second Line", theTitle);
+                        mList.add(resultsmap);
+                    }
                         resultsListView.setAdapter(mSimpleAdapter);
 
                         } catch (JSONException e){

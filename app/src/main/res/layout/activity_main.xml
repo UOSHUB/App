@@ -25,14 +25,6 @@
         android:layout_weight="1">
     </FrameLayout>
 
-    <!--<fragment-->
-        <!--android:id="@+id/fragment_container"-->
-        <!--android:name="baxzel.uoshub.layout.UpdatesFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="516dp"-->
-        <!--android:layout_weight="1">-->
-    <!--</fragment>-->
-
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"

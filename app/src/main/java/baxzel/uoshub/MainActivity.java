@@ -21,6 +21,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +43,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("UOS HUB");
         setSupportActionBar(toolbar);
+
+        if(LoginActivity.mRequestQueue == null)
+            LoginActivity.mRequestQueue = Volley.newRequestQueue(this.getApplicationContext());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -112,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         );
         LoginActivity.mRequestQueue.add(jsonObjectRequest);
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
