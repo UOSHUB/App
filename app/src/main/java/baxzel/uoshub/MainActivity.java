@@ -32,7 +32,7 @@ import java.util.Iterator;
 import baxzel.uoshub.layout.CoursesFragment;
 import baxzel.uoshub.layout.DeadlinesFragment;
 import baxzel.uoshub.layout.EmailFragment;
-import baxzel.uoshub.layout.UpdatesFragment;
+import baxzel.uoshub.layout.UpdatesFragment; 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     String URL = Declutterer.URLHolder("Details");
