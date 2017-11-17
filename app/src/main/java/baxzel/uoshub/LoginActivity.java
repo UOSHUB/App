@@ -121,11 +121,11 @@ public class LoginActivity extends AppCompatActivity{
                     public void onErrorResponse(VolleyError error) {
                         Log.d("JSON error", error.toString() + "");
                         if(error.toString().contains("Unable to resolve host"))
-                            Toast.makeText(mContext, "Make sure to have internet connection", Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, "You must be connected to the Internet", Toast.LENGTH_LONG).show();
                         if(error.toString().contains("com.android.volley.ServerError"))
-                            Toast.makeText(mContext, "Wrong password and ID match", Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, "Wrong ID and Password combination", Toast.LENGTH_LONG).show();
                         if(error.toString().contains("com.android.volley.TimeoutError"))
-                            Toast.makeText(mContext, "Timeout error make sure of the password and try again", Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, "Timeout error; Please try again", Toast.LENGTH_LONG).show();
                     }
                 }) {
                     protected Map<String, String> getParams() throws AuthFailureError{

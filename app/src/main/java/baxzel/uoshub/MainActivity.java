@@ -32,7 +32,7 @@ import java.util.Iterator;
 import baxzel.uoshub.layout.CoursesFragment;
 import baxzel.uoshub.layout.DeadlinesFragment;
 import baxzel.uoshub.layout.EmailFragment;
-import baxzel.uoshub.layout.UpdatesFragment; 
+import baxzel.uoshub.layout.UpdatesFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     String URL = Declutterer.URLHolder("Details");
@@ -89,17 +89,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         View header = navigationView.getHeaderView(0);
 
                         final TextView studentName = (TextView) header.findViewById(R.id.navigationDrawerStudentName);
+                        final TextView studentId = (TextView) header.findViewById(R.id.navigationDrawerStudentId);
                         final TextView studentMajor = (TextView) header.findViewById(R.id.navigationDrawerStudentMajor);
                         final TextView studentCollege = (TextView) header.findViewById(R.id.navigationDrawerStudentCollege);
 
                         for(Iterator<String> iter = response.keys(); iter.hasNext();){
                             String key = iter.next();
                             JSONObject course = response.getJSONObject(key);
-                            String theName = course.getString("name");
+                            String theFirstName = course.getString("firstName");
+                            String theLastName = course.getString("lastName");
+                            String theId = course.getString("studentId");
                             String theMajor = course.getString("major");
-                            String theCollege = course.getString("collage");
+                            String theCollege = course.getString("college");
 
-                            studentName.setText(theName);
+                            studentName.setText(theFirstName + " " + theLastName);
+                            studentId.setText(theId);
                             studentMajor.setText(theMajor);
                             studentCollege.setText(theCollege);
                         }

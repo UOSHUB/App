@@ -19,15 +19,21 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
     <TextView
-        android:id="@+id/navigationDrawerStudentMajor"
+        android:id="@+id/navigationDrawerStudentId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/student_major"/>
+        android:text="@string/student_id"/>
+
+    <TextView
+        android:id="@+id/navigationDrawerStudentMajor"
+        android:text="@string/student_major"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/navigationDrawerStudentCollege"
+        android:text="@string/student_college"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/student_college"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
