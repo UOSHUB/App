@@ -2,6 +2,7 @@ package baxzel.uoshub;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -31,6 +32,9 @@ public class LoginActivity extends AppCompatActivity{
     String URL = Declutterer.URLHolder("Login");
     Context mContext;
 
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPrefsEditor;
+
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -39,6 +43,12 @@ public class LoginActivity extends AppCompatActivity{
         mLoginButton = (Button) findViewById(R.id.login_button);
         mContext = getApplicationContext();
 
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
+
+        mId.setText(loginPreferences.getString("username", ""));
+        mPassword.setText(loginPreferences.getString("password", ""));
+        
         if(mRequestQueue == null)
             mRequestQueue = Volley.newRequestQueue(this);
 
@@ -84,6 +94,10 @@ public class LoginActivity extends AppCompatActivity{
                 boolean sendRequestU = false;
                 boolean sendRequestP = false;
 
+                loginPrefsEditor.putString("username", theStringId);
+                loginPrefsEditor.putString("password", theStringPassword);
+                loginPrefsEditor.commit();
+
                 if(theStringId.startsWith("u") || theStringId.startsWith("U")){
                     if(theStringId.length() == 9){
                         boolean allNums = true;
@@ -118,7 +132,7 @@ public class LoginActivity extends AppCompatActivity{
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
                 }, new Response.ErrorListener(){
-                    public void onErrorResponse(VolleyError error) {
+                    public void onErrorResponse(VolleyError error){
                         Log.d("JSON error", error.toString() + "");
                         if(error.toString().contains("Unable to resolve host"))
                             Toast.makeText(mContext, "You must be connected to the Internet", Toast.LENGTH_LONG).show();

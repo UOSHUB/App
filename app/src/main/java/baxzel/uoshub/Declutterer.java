@@ -1,12 +1,10 @@
 package baxzel.uoshub;
 
-import android.support.v4.app.FragmentActivity;
-
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 
-public class Declutterer extends FragmentActivity{
+public class Declutterer{
     public static String URLHolder(String URLName){
         String URL = new String();
         if(URLName == "Login")
