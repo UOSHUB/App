@@ -7,22 +7,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+
 import baxzel.uoshub.Declutterer;
 import baxzel.uoshub.LoginActivity;
+import baxzel.uoshub.MyAdapter;
 import baxzel.uoshub.R;
 
 public class CoursesFragment extends Fragment{
@@ -41,33 +41,19 @@ public class CoursesFragment extends Fragment{
             new Response.Listener<JSONObject>(){
                 public void onResponse(JSONObject response){
                     Log.d("response", response.toString());
-                    try{
+                    try {
                         ListView resultsListView = (ListView) v.findViewById(R.id.courses_list);
-                        HashMap<String, String> mHashMap = new HashMap<>();
-                        for(Iterator<String> iter = response.keys(); iter.hasNext();){
-                            String key = iter.next();
+                        Iterator keys = response.keys();
+                        //ArrayList<JSONArray> courses = new ArrayList<>();
+                        JSONArray courses = new JSONArray();
+                        while (keys.hasNext()) {
+                            String key = keys.next().toString();
                             JSONObject course = response.getJSONObject(key);
-                            String theCRN = course.getString("crn");
-                            String theTitle = course.getString("title");
-
-                            mHashMap.put(theCRN, theTitle);
+                            courses.put(course);
                         }
+                        MyAdapter mMyAdapter = new MyAdapter(getContext(), courses, "title","doctor","location","start" );
 
-                        List<LinkedHashMap<String, String>> mList = new ArrayList<>();
-                        SimpleAdapter mSimpleAdapter = new SimpleAdapter(getContext(), mList, R.layout.fragment_courses,
-                            new String[]{"First Line", "Second Line"},
-                            new int[]{R.id.item, R.id.sub_item});
-
-
-                        Iterator mIterator = mHashMap.entrySet().iterator();
-                        while(mIterator.hasNext()){
-                            LinkedHashMap<String, String> resultsmap = new LinkedHashMap<>();
-                            Map.Entry pair = (Map.Entry)mIterator.next();
-                            resultsmap.put("First Line", pair.getKey().toString());
-                            resultsmap.put("Second Line", pair.getValue().toString());
-                            mList.add(resultsmap);
-                        }
-                        resultsListView.setAdapter(mSimpleAdapter);
+                        resultsListView.setAdapter(mMyAdapter);
 
                     }catch (JSONException e){
                         e.printStackTrace();

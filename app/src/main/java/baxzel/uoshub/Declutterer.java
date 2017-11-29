@@ -14,9 +14,9 @@ public class Declutterer{
         else if(URLName == "Courses")
             URL = "https://www.uoshub.com/api/terms/201710/";
         else if(URLName == "Emails")
-            URL = "https://www.uoshub.com/api/emails/personal";
+            URL = "https://www.uoshub.com/api/emails/personal/";
         else if(URLName == "Deadlines")
-            URL = "https://www.uoshub.com/api/updates/";
+            URL = "https://www.uoshub.com/api/terms/201710/deadlines/";
         else if(URLName == "Calendar")
             URL = "https://www.uoshub.com/api/calendar/201720/";
         else if(URLName == "Grades")
