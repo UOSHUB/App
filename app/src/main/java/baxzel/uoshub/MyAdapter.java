@@ -2,6 +2,7 @@ package baxzel.uoshub;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import baxzel.uoshub.layout.TimeFunctions;
+
 
 /**
  * Created by Muhammad Owais on 26-Nov-17.
@@ -27,16 +34,22 @@ public class MyAdapter extends ArrayAdapter
     public String mSub;
     public String mWaqt;
     public String mInf;
+    public String mOriginFragment;
 
     public MyAdapter( Context context, JSONArray data,
-          String main, String sub, String waqt, String inf )
+          String main, String sub, String waqt, String inf, String origin )
             throws JSONException {
         super(context,R.layout.new_item_layout, myData);
+
+        mOriginFragment = origin;
+        Log.v("Origin","Origin is:"+mOriginFragment);
 
         mMain = main;
         mSub = sub;
         mWaqt = waqt;
         mInf = inf;
+
+        myData.clear();
 
         for(int i = 0; i < data.length(); i++)
             myData.add(data.getJSONObject(i));
@@ -47,7 +60,8 @@ public class MyAdapter extends ArrayAdapter
     public View getView(int position,  View convertView, ViewGroup parent)
     {
         LayoutInflater myInflator = LayoutInflater.from(getContext());
-        View customView = myInflator.inflate(R.layout.new_item_layout,parent,false);
+        View customView = myInflator.inflate(R.layout.new_item_layout,parent,
+                false);
 
         JSONObject course = myData.get(position);
         TextView itemTitle = (TextView) customView.findViewById(R.id.item_title);
@@ -55,23 +69,64 @@ public class MyAdapter extends ArrayAdapter
         TextView itemTime = (TextView) customView.findViewById(R.id.item_time);
         TextView itemInfo = (TextView) customView.findViewById(R.id.item_info);
 
-
-        String theTitle = null, theSubTitle = null, theTime = null, theInfo = null;
         try {
-            theTitle = course.getString(mMain);
-            theTime = course.getString(mWaqt);
-            theSubTitle = course.getString(mSub);
+            String theTitle = course.getString(mMain),
+            theSubTitle = course.getString(mSub),
             theInfo = course.getString(mInf);
-        } catch (JSONException e) {
+
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+            DateFormat df = new SimpleDateFormat("d MMM, EEE");
+
+
+
+            if (mOriginFragment.equals("deadlines"))
+            {
+                String theTime = course.getString(mWaqt);
+                Date timeDate = sf.parse(theTime);
+                String theTimeStr = df.format(timeDate);
+
+                Date dueDate = sf.parse(theSubTitle);
+                String dueDateStr = TimeFunctions.time_ago(dueDate);
+
+                itemSubTitle.setText(dueDateStr);
+                itemTime.setText(theTimeStr);
+                itemTitle.setText(theTitle);
+                itemInfo.setText(theInfo);
+            }
+            else if (mOriginFragment.equals("courses"))
+            {
+                itemTitle.setText(theTitle);
+                itemSubTitle.setText("");
+                itemTime.setText("");
+                itemInfo.setText("");
+            }
+            else if (mOriginFragment.equals("updates"))
+            {
+                String theTime = course.getString(mWaqt);
+                Date timeDate = sf.parse(theTime);
+                String theTimeStr = df.format(timeDate);
+
+                itemTitle.setText(theTitle);
+                itemSubTitle.setText(theSubTitle);
+                itemTime.setText(theTimeStr);
+                itemInfo.setText("");
+            }
+            else if (mOriginFragment.equals("email"))
+            {
+                String theTime = course.getString(mWaqt);
+                Date timeDate = sf.parse(theTime);
+                String theTimeStr = df.format(timeDate);
+
+                itemTitle.setText(theTitle);
+                itemSubTitle.setText(theSubTitle);
+                itemTime.setText(theTimeStr);
+                itemInfo.setText(theInfo);
+            }
+
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-      itemTitle.setText(theTitle);
-      itemSubTitle.setText(theSubTitle);
-      itemTime.setText(theTime);
-      itemInfo.setText(theInfo);
-
-
         return customView;
     }
 }

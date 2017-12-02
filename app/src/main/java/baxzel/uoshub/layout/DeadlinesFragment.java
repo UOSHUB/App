@@ -42,7 +42,7 @@ public class DeadlinesFragment extends Fragment{
                         try{
                             ListView resultsListView = (ListView) v.findViewById(R.id.deadlines_list);
                             MyAdapter mMyAdapter = new MyAdapter
-                                    (getContext(), response, "title","dueDate", "time", "course");
+            (getContext(), response, "title","dueDate", "time", "course","deadlines");
                             resultsListView.setAdapter(mMyAdapter);
 
                         } catch (JSONException e){

@@ -51,7 +51,7 @@ public class CoursesFragment extends Fragment{
                             JSONObject course = response.getJSONObject(key);
                             courses.put(course);
                         }
-                        MyAdapter mMyAdapter = new MyAdapter(getContext(), courses, "title","doctor","location","start" );
+                        MyAdapter mMyAdapter = new MyAdapter(getContext(), courses, "title","title","title","title","courses" );
 
                         resultsListView.setAdapter(mMyAdapter);
 
