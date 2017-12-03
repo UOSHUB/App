@@ -37,7 +37,7 @@ public class DeadlinesFragment extends Fragment{
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONArray>(){
                     public void onResponse(JSONArray response){
-                        Log.d("response" , response.toString());
+                        Log.d("deadlines response" , response.toString());
 
                         try{
                             ListView resultsListView = (ListView) v.findViewById(R.id.items_list);

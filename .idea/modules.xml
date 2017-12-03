@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\baxze\AndroidStudioProjects\UOSHUB\App.iml" filepath="C:\Users\baxze\AndroidStudioProjects\UOSHUB\App.iml" />
-      <module fileurl="file://$PROJECT_DIR$/UOSHUB.iml" filepath="$PROJECT_DIR$/UOSHUB.iml" />
-      <module fileurl="file://C:\Users\Muhammad Owais\Documents\Coding Files\Android Studio\App\UOSHUB.iml" filepath="C:\Users\Muhammad Owais\Documents\Coding Files\Android Studio\App\UOSHUB.iml" />
+      <module fileurl="file://$PROJECT_DIR$/App.iml" filepath="$PROJECT_DIR$/App.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

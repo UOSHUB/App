@@ -1,13 +1,21 @@
+/*
 package baxzel.uoshub.database;
 
+*/
 /**
  * Created by Muhammad Owais on 03-Dec-17.
- */
+ *//*
+
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class DBManager {
@@ -38,6 +46,36 @@ public class DBManager {
         database.insert("updates", null, values);
     }
 
+    public JSONArray getUpdates()
+    {
+        JSONArray Updates = new JSONArray();
+        String mQuery = "SELECT * From updates";
+        Cursor mCur = database.rawQuery(mQuery, new String[]{});
+        if(mCur.moveToFirst())
+            do {
+
+                JSONObject tuple = new JSONObject();
+
+                String dismiss = mCur.getString(0);
+                String title = mCur.getString(1);
+                String course = mCur.getString(2);
+                String time = mCur.getString(3);
+
+                try {
+                    tuple.put("dismiss",dismiss);
+                    tuple.put("title", title);
+                    tuple.put("course", course);
+                    tuple.put("time", time);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Updates.put(tuple);
+            } while (mCur.moveToNext());
+
+        return Updates;
+    }
+
     public void addCourse(String id, String title, String doctor, String email,
                           String days, String start, String end, String location)
     {
@@ -55,6 +93,44 @@ public class DBManager {
         database.insert("courses", null, values);
     }
 
+    public JSONArray getCourses()
+    {
+        JSONArray Courses = new JSONArray();
+        String mQuery = "SELECT * From courses";
+        Cursor mCur = database.rawQuery(mQuery, new String[]{});
+        if(mCur.moveToFirst())
+            do {
+
+                JSONObject tuple = new JSONObject();
+
+                String id = mCur.getString(0);
+                String title = mCur.getString(1);
+                String doctor = mCur.getString(2);
+                String email = mCur.getString(3);
+                String days = mCur.getString(4);
+                String start = mCur.getString(5);
+                String end = mCur.getString(6);
+                String location = mCur.getString(7);
+
+                try {
+                    tuple.put("id", id);
+                    tuple.put("title", title);
+                    tuple.put("doctor", doctor);
+                    tuple.put("email", email);
+                    tuple.put("days", days);
+                    tuple.put("start", start);
+                    tuple.put("end", end);
+                    tuple.put("location", location);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Courses.put(tuple);
+            } while (mCur.moveToNext());
+
+        return Courses;
+    }
+
     public void addEmail(String id, String title, String sender,
                          String from, String event, String time)
     {
@@ -69,6 +145,38 @@ public class DBManager {
         database.insert("emails", null, values);
     }
 
+    public JSONArray getEmails()
+    {
+        JSONArray Emails = new JSONArray();
+        String mQuery = "SELECT * From emails";
+        Cursor mCur = database.rawQuery(mQuery, new String[]{});
+        if(mCur.moveToFirst())
+            do {
+
+                JSONObject tuple = new JSONObject();
+
+                String title = mCur.getString(1);
+                String sender = mCur.getString(2);
+                String from = mCur.getString(3);
+                String event = mCur.getString(4);
+                String time = mCur.getString(5);
+
+                try {
+                    tuple.put("title", title);
+                    tuple.put("sender", sender);
+                    tuple.put("from", from);
+                    tuple.put("event", event);
+                    tuple.put("time", time);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Emails.put(tuple);
+            } while (mCur.moveToNext());
+
+        return Emails;
+    }
+
     public void addDeadline(String title, Integer course, String dueDate,
                             String time)
     {
@@ -81,6 +189,36 @@ public class DBManager {
         database.insert("deadlines", null, values);
     }
 
+    public JSONArray getDeadlines()
+    {
+        JSONArray Deadlines = new JSONArray();
+        String mQuery = "SELECT * From deadlines";
+        Cursor mCur = database.rawQuery(mQuery, new String[]{});
+        if(mCur.moveToFirst())
+            do {
+
+                JSONObject tuple = new JSONObject();
+
+                String title = mCur.getString(1);
+                String course = mCur.getString(2);
+                String dueDate = mCur.getString(3);
+                String time = mCur.getString(4);
+
+                try {
+                    tuple.put("title", title);
+                    tuple.put("course", course);
+                    tuple.put("dueDate", dueDate);
+                    tuple.put("time", time);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Deadlines.put(tuple);
+            } while (mCur.moveToNext());
+
+        return Deadlines;
+    }
+
     public void addCal_entry(String text, String date)
     {
         ContentValues values = new ContentValues();
@@ -88,6 +226,32 @@ public class DBManager {
         values.put("date", date);
 
         database.insert("calendar", null, values);
+    }
+
+    public JSONArray getCalendar()
+    {
+        JSONArray Calendar = new JSONArray();
+        String mQuery = "SELECT * From calendar";
+        Cursor mCur = database.rawQuery(mQuery, new String[]{});
+        if(mCur.moveToFirst())
+            do {
+
+                JSONObject tuple = new JSONObject();
+
+                String text = mCur.getString(1);
+                String date = mCur.getString(2);
+
+                try {
+                    tuple.put("text", text);
+                    tuple.put("date", date);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Calendar.put(tuple);
+            } while (mCur.moveToNext());
+
+        return Calendar;
     }
 
     public void addGrade(String title, Integer course, Integer outOf,
@@ -104,6 +268,38 @@ public class DBManager {
         database.insert("grades", null, values);
     }
 
+    public JSONArray getGrades()
+    {
+        JSONArray Grades = new JSONArray();
+        String mQuery = "SELECT * From grades";
+        Cursor mCur = database.rawQuery(mQuery, new String[]{});
+        if(mCur.moveToFirst())
+            do {
+
+                JSONObject tuple = new JSONObject();
+
+                String title = mCur.getString(1);
+                String course = mCur.getString(2);
+                String outOf = mCur.getString(3);
+                String grade = mCur.getString(4);
+                String time = mCur.getString(5);
+
+                try {
+                    tuple.put("title", title);
+                    tuple.put("course", course);
+                    tuple.put("outOf", outOf);
+                    tuple.put("grade", grade);
+                    tuple.put("time", time);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Grades.put(tuple);
+            } while (mCur.moveToNext());
+
+        return Grades;
+    }
+
     public void addHold(String reason, String type, String start,
                         String end)
     {
@@ -116,35 +312,39 @@ public class DBManager {
         database.insert("holds", null, values);
     }
 
-/*    public List<Donation> getAll() {
-        List<Donation> donations = new ArrayList<Donation>();
-        Cursor cursor = database.rawQuery("SELECT * FROM donations", null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Donation d = toDonation(cursor);
-            donations.add(d);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return donations;
-    }*/
+    public JSONArray getHolds()
+    {
+        JSONArray Holds = new JSONArray();
+        String mQuery = "SELECT * From holds";
+        Cursor mCur = database.rawQuery(mQuery, new String[]{});
+        if(mCur.moveToFirst())
+            do {
 
-/*    private Donation toDonation(Cursor cursor) {
-        Donation pojo = new Donation();
-        pojo.id = cursor.getInt(0);
-        pojo.amount = cursor.getInt(1);
-        pojo.method = cursor.getString(2);
-        return pojo;
+                JSONObject tuple = new JSONObject();
+
+                String reason = mCur.getString(1);
+                String type = mCur.getString(2);
+                String start = mCur.getString(3);
+                String end = mCur.getString(4);
+
+                try {
+                    tuple.put("reason", reason);
+                    tuple.put("type", type);
+                    tuple.put("start", start);
+                    tuple.put("end", end);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Holds.put(tuple);
+            } while (mCur.moveToNext());
+
+        return Holds;
     }
 
-    public void setTotalDonated(Base base) {
-        Cursor c = database.rawQuery("SELECT SUM(amount) FROM donations", null);
-        c.moveToFirst();
-        if (!c.isAfterLast())
-            base.app.totalDonated = c.getInt(0);
-    }*/
 
     public void reset() {
         database.delete("donations", null, null);
     }
 }
+*/

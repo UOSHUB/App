@@ -1,8 +1,11 @@
+/*
 package baxzel.uoshub.database;
 
+*/
 /**
  * Created by Muhammad Owais on 02-Dec-17.
- */
+ *//*
+
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -94,4 +97,4 @@ public class DBDesigner extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS holds");
         onCreate(db);
     }
-}
+}*/
