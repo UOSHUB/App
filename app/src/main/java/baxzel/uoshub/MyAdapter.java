@@ -122,6 +122,26 @@ public class MyAdapter extends ArrayAdapter
                 itemTime.setText(theTimeStr);
                 itemInfo.setText(theInfo);
             }
+            else if (mOriginFragment.equals("calendar"))
+            {
+                String theTime = course.getString(mWaqt);
+
+                itemTitle.setText(theTitle);
+                itemSubTitle.setText("");
+                itemTime.setText(theTime);
+                itemInfo.setText("");
+            }
+            else if (mOriginFragment.equals("grades"))
+            {
+                String theTime = course.getString(mWaqt);
+                String gradeStr = theSubTitle + ": " + theInfo + "/" + theTime;
+
+                itemTitle.setText(theTitle);
+                itemSubTitle.setText(gradeStr);
+                itemTime.setText("");
+                itemInfo.setText("");
+            }
+
 
 
         } catch (Exception e) {

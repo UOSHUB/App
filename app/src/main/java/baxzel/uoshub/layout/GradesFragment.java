@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -17,14 +16,10 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 import baxzel.uoshub.Declutterer;
 import baxzel.uoshub.LoginActivity;
+import baxzel.uoshub.MyAdapter;
 import baxzel.uoshub.R;
 
 public class GradesFragment extends Fragment{
@@ -45,26 +40,9 @@ public class GradesFragment extends Fragment{
                     Log.d("response" , response.toString());
                     try{
                         ListView resultsListView = (ListView) v.findViewById(R.id.grades_list);
-                        List<LinkedHashMap<String, String>> mList = new ArrayList<>();
-                        SimpleAdapter mSimpleAdapter = new SimpleAdapter(getContext(), mList, R.layout.fragment_grades,
-                                new String[]{"First Line", "Second Line"},
-                                new int[]{R.id.item, R.id.sub_item});
-
-                        for(int i=0;i<response.length();i++){
-                            LinkedHashMap<String, String> resultsmap = new LinkedHashMap<>();
-
-                            String theCourse = new JSONObject(response.get(i).toString()).get("course").toString();
-                            resultsmap.put("First Line", theCourse);
-
-                            String theOutOf = new JSONObject(response.get(i).toString()).get("outOf").toString();
-                            String theGrade = new JSONObject(response.get(i).toString()).get("grade").toString();
-                            String theTitle = new JSONObject(response.get(i).toString()).get("title").toString();
-
-                            resultsmap.put("Second Line", theTitle + ": " + theGrade + "/" + theOutOf);
-
-                            mList.add(resultsmap);
-                        }
-                        resultsListView.setAdapter(mSimpleAdapter);
+                        MyAdapter mMyAdapter = new MyAdapter
+                                (getContext(), response, "course","title", "outOf", "grade","grades");
+                        resultsListView.setAdapter(mMyAdapter);
 
                     } catch (JSONException e){
                         e.printStackTrace();
