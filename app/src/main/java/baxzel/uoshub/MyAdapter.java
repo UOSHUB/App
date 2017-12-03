@@ -39,7 +39,7 @@ public class MyAdapter extends ArrayAdapter
     public MyAdapter( Context context, JSONArray data,
           String main, String sub, String waqt, String inf, String origin )
             throws JSONException {
-        super(context,R.layout.new_item_layout, myData);
+        super(context,R.layout.item_layout, myData);
 
         mOriginFragment = origin;
         Log.v("Origin","Origin is:"+mOriginFragment);
@@ -60,7 +60,7 @@ public class MyAdapter extends ArrayAdapter
     public View getView(int position,  View convertView, ViewGroup parent)
     {
         LayoutInflater myInflator = LayoutInflater.from(getContext());
-        View customView = myInflator.inflate(R.layout.new_item_layout,parent,
+        View customView = myInflator.inflate(R.layout.item_layout,parent,
                 false);
 
         JSONObject course = myData.get(position);
@@ -104,7 +104,7 @@ public class MyAdapter extends ArrayAdapter
             {
                 String theTime = course.getString(mWaqt);
                 Date timeDate = sf.parse(theTime);
-                String theTimeStr = df.format(timeDate);
+                String theTimeStr = TimeFunctions.time_ago(timeDate);
 
                 itemTitle.setText(theTitle);
                 itemSubTitle.setText(theSubTitle);
@@ -140,6 +140,15 @@ public class MyAdapter extends ArrayAdapter
                 itemSubTitle.setText(gradeStr);
                 itemTime.setText("");
                 itemInfo.setText("");
+            }
+            else if (mOriginFragment.equals("holds"))
+            {
+                String theTime = course.getString(mWaqt);
+
+                itemTitle.setText(theTitle);
+                itemSubTitle.setText(theSubTitle);
+                itemTime.setText(theTime);
+                itemInfo.setText("to "+theInfo);
             }
 
 

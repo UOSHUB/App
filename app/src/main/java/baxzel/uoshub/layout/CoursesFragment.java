@@ -35,14 +35,14 @@ public class CoursesFragment extends Fragment{
         if(LoginActivity.mRequestQueue == null)
             LoginActivity.mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
-        final View v = inflater.inflate(R.layout.fragment_courses, container, false);
+        final View v = inflater.inflate(R.layout.fragment_list, container, false);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
             new Response.Listener<JSONObject>(){
                 public void onResponse(JSONObject response){
                     Log.d("response", response.toString());
                     try {
-                        ListView resultsListView = (ListView) v.findViewById(R.id.courses_list);
+                        ListView resultsListView = (ListView) v.findViewById(R.id.items_list);
                         Iterator keys = response.keys();
                         //ArrayList<JSONArray> courses = new ArrayList<>();
                         JSONArray courses = new JSONArray();

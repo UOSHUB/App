@@ -32,7 +32,7 @@ public class DeadlinesFragment extends Fragment{
         if(LoginActivity.mRequestQueue == null)
             LoginActivity.mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
-        final View v = inflater.inflate(R.layout.fragment_deadlines, container, false);
+        final View v = inflater.inflate(R.layout.fragment_list, container, false);
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONArray>(){
@@ -40,7 +40,7 @@ public class DeadlinesFragment extends Fragment{
                         Log.d("response" , response.toString());
 
                         try{
-                            ListView resultsListView = (ListView) v.findViewById(R.id.deadlines_list);
+                            ListView resultsListView = (ListView) v.findViewById(R.id.items_list);
                             MyAdapter mMyAdapter = new MyAdapter
             (getContext(), response, "title","dueDate", "time", "course","deadlines");
                             resultsListView.setAdapter(mMyAdapter);

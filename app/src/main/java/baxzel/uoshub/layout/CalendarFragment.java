@@ -32,14 +32,14 @@ public class CalendarFragment extends Fragment{
         if(LoginActivity.mRequestQueue == null)
             LoginActivity.mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
-        final View v = inflater.inflate(R.layout.fragment_calendar, container, false);
+        final View v = inflater.inflate(R.layout.fragment_list, container, false);
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONArray>(){
                     public void onResponse(JSONArray response){
                         Log.d("response" , response.toString());
                         try{
-                            ListView resultsListView = (ListView) v.findViewById(R.id.calendar_list);
+                            ListView resultsListView = (ListView) v.findViewById(R.id.items_list);
                             MyAdapter mMyAdapter = new MyAdapter
                                     (getContext(), response, "text","date", "date", "date","calendar");
                             resultsListView.setAdapter(mMyAdapter);

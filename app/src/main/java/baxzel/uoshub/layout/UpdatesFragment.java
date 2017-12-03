@@ -32,14 +32,14 @@ public class UpdatesFragment extends Fragment{
         if(LoginActivity.mRequestQueue == null)
             LoginActivity.mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
-        final View v = inflater.inflate(R.layout.fragment_updates, container, false);
+        final View v = inflater.inflate(R.layout.fragment_list, container, false);
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
             new Response.Listener<JSONArray>(){
                 public void onResponse(JSONArray response){
                 Log.d("response" , response.toString());
                 try{
-                    ListView resultsListView = (ListView) v.findViewById(R.id.updates_list);
+                    ListView resultsListView = (ListView) v.findViewById(R.id.items_list);
                     MyAdapter mMyAdapter = new MyAdapter
                             (getContext(), response, "title","course", "time", "course","updates");
                         resultsListView.setAdapter(mMyAdapter);

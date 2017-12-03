@@ -21,7 +21,7 @@ public class DBDesigner extends SQLiteOpenHelper {
             + "time text not null);";
 
     private static final String DATABASE_CREATE_TABLE_COURSES = "create table courses "
-            + "(id integer primary key,"
+            + "(id text primary key,"
             + "title text not null,"
             + "doctor text not null,"
             + "email text,"
@@ -59,9 +59,11 @@ public class DBDesigner extends SQLiteOpenHelper {
             + "time text not null);";
 
     private static final String DATABASE_CREATE_TABLE_HOLDS = "create table holds "
-            + "(dismiss integer primary key,"
-            + "title text not null,"
-            + "time text not null);";
+            + "(id integer primary key autoincrement,"
+            + "reason text not null,"
+            + "type text not null,"
+            + "start text not null,"
+            + "end text not null);";
 
     public DBDesigner(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
