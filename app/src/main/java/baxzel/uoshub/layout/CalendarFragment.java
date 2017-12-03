@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -17,14 +16,10 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 import baxzel.uoshub.Declutterer;
 import baxzel.uoshub.LoginActivity;
+import baxzel.uoshub.MyAdapter;
 import baxzel.uoshub.R;
 
 public class CalendarFragment extends Fragment{
@@ -45,23 +40,9 @@ public class CalendarFragment extends Fragment{
                         Log.d("response" , response.toString());
                         try{
                             ListView resultsListView = (ListView) v.findViewById(R.id.calendar_list);
-                            List<LinkedHashMap<String, String>> mList = new ArrayList<>();
-                            SimpleAdapter mSimpleAdapter = new SimpleAdapter(getContext(), mList, R.layout.fragment_calendar,
-                                    new String[]{"First Line", "Second Line"},
-                                    new int[]{R.id.item, R.id.sub_item});
-
-                            for(int i=0;i<response.length();i++){
-                                LinkedHashMap<String, String> resultsmap = new LinkedHashMap<>();
-
-                                String theDate = new JSONObject(response.get(i).toString()).get("date").toString();
-                                resultsmap.put("First Line", theDate);
-
-                                String theText = new JSONObject(response.get(i).toString()).get("text").toString();
-                                resultsmap.put("Second Line", theText);
-
-                                mList.add(resultsmap);
-                            }
-                            resultsListView.setAdapter(mSimpleAdapter);
+                            MyAdapter mMyAdapter = new MyAdapter
+                                    (getContext(), response, "text","date", "date", "date","calendar");
+                            resultsListView.setAdapter(mMyAdapter);
 
                         } catch (JSONException e){
                             e.printStackTrace();

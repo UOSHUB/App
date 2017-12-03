@@ -36,7 +36,6 @@ public class Declutterer{
                 URL = "https://www.uoshub.com/api/details/";
                 break;
         }
-
         return URL;
     }
 

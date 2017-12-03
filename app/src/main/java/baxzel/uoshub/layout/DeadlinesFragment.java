@@ -7,26 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 import baxzel.uoshub.Declutterer;
 import baxzel.uoshub.LoginActivity;
+import baxzel.uoshub.MyAdapter;
 import baxzel.uoshub.R;
 
 public class DeadlinesFragment extends Fragment{
@@ -41,40 +34,23 @@ public class DeadlinesFragment extends Fragment{
 
         final View v = inflater.inflate(R.layout.fragment_deadlines, container, false);
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
-                new Response.Listener<JSONObject>(){
-                    public void onResponse(JSONObject response){
-                        Log.d("response", response.toString());
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
+                new Response.Listener<JSONArray>(){
+                    public void onResponse(JSONArray response){
+                        Log.d("response" , response.toString());
+
                         try{
                             ListView resultsListView = (ListView) v.findViewById(R.id.deadlines_list);
-                            HashMap<String, String> mHashMap = new HashMap<>();
-                            for(Iterator<String> iter = response.keys(); iter.hasNext();){
-                                String key = iter.next();
-                                JSONObject deadline = response.getJSONObject(key);
-                                String theTitle = deadline.getString("title");
-                                String theDueDate = deadline.getString("dueDate");
-                                mHashMap.put(theTitle, theDueDate);
-                            }
-                            List<LinkedHashMap<String, String>> mList = new ArrayList<>();
-                            SimpleAdapter mSimpleAdapter = new SimpleAdapter(getContext(), mList, R.layout.fragment_deadlines,
-                                    new String[]{"First Line", "Second Line"},
-                                    new int[]{R.id.item, R.id.sub_item});
+                            MyAdapter mMyAdapter = new MyAdapter
+            (getContext(), response, "title","dueDate", "time", "course","deadlines");
+                            resultsListView.setAdapter(mMyAdapter);
 
-                            Iterator mIterator = mHashMap.entrySet().iterator();
-                            while(mIterator.hasNext()){
-                                LinkedHashMap<String, String> resultsmap = new LinkedHashMap<>();
-                                Map.Entry pair = (Map.Entry)mIterator.next();
-                                resultsmap.put("First Line", pair.getKey().toString());
-                                resultsmap.put("Second Line", pair.getValue().toString());
-                                mList.add(resultsmap);
-                            }
-                            resultsListView.setAdapter(mSimpleAdapter);
-
-                        }catch (JSONException e){
+                        } catch (JSONException e){
                             e.printStackTrace();
                         }
                     }
-                }, new Response.ErrorListener(){
+                },
+                new Response.ErrorListener(){
                     public void onErrorResponse(VolleyError error){
                         Log.d("VOLLEY", error.getMessage() + "");
                     }
@@ -84,3 +60,4 @@ public class DeadlinesFragment extends Fragment{
         return v;
     }
 }
+//CBO
