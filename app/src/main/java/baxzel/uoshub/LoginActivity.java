@@ -31,7 +31,6 @@ public class LoginActivity extends AppCompatActivity{
     private StringRequest mStringRequest;
     String URL = Declutterer.URLHolder("Login");
     Context mContext;
-
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPrefsEditor;
 
@@ -42,13 +41,12 @@ public class LoginActivity extends AppCompatActivity{
         mPassword = (EditText) findViewById(R.id.password);
         mLoginButton = (Button) findViewById(R.id.login_button);
         mContext = getApplicationContext();
-
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
 
         mId.setText(loginPreferences.getString("username", ""));
         mPassword.setText(loginPreferences.getString("password", ""));
-        
+
         if(mRequestQueue == null)
             mRequestQueue = Volley.newRequestQueue(this);
 
@@ -120,7 +118,7 @@ public class LoginActivity extends AppCompatActivity{
                 else
                     errors += "Password cannot be null\n";
 
-                if(errors != "")
+                if(!errors.equals(""))
                     Toast.makeText(mContext, errors.substring(0,errors.length()-1), Toast.LENGTH_LONG).show();
 
                 if(sendRequestU && sendRequestP){

@@ -1,70 +1,65 @@
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="baxzel.uoshub.LoginActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    tools:context="baxzel.uoshub.LoginActivity">
+    android:gravity="center"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ImageView
+        android:id="@+id/login_activity_logo"
+        android:layout_width="290dp"
+        android:layout_height="120dp"
+        android:src="@drawable/uoshub_logotext_alt3"
+        android:contentDescription="@string/app_name">
+    </ImageView>
+
+    <EditText
+        android:id="@+id/student_id"
+        android:hint="@string/prompt_student_id"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:clickable="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:layout_height="48dp"
+        android:background="@drawable/rounded_textview"
+        android:fontFamily="sans-serif"
+        android:inputType="textVisiblePassword">
+    </EditText>
 
-        <ImageView
-            android:id="@+id/login_activity_logo"
-            android:layout_width="290dp"
-            android:layout_height="120dp"
-            android:src="@drawable/uoshub_logotext_alt3">
-        </ImageView>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:hintEnabled="false"
+        app:passwordToggleEnabled="true">
 
         <EditText
-            android:id="@+id/student_id"
-            android:hint="@string/prompt_student_id"
+            android:id="@+id/password"
+            android:hint="@string/prompt_password"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@drawable/rounded_textview"
             android:fontFamily="sans-serif"
-            android:inputType="textVisiblePassword">
+            android:inputType="textPassword">
         </EditText>
+    </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:hintEnabled="false"
-            app:passwordToggleEnabled="true">
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="sans-serif"
+        android:text="@string/login_button_text"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:textStyle="bold">
+    </Button>
 
-            <EditText
-                android:id="@+id/password"
-                android:hint="@string/prompt_password"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@drawable/rounded_textview"
-                android:fontFamily="sans-serif"
-                android:inputType="textPassword">
-            </EditText>
-        </android.support.design.widget.TextInputLayout>
-
-        <Button
-            android:id="@+id/login_button"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/rounded_button"
-            android:fontFamily="sans-serif"
-            android:text="@string/login_button_text"
-            android:textColor="@android:color/white"
-            android:textSize="14sp"
-            android:textStyle="bold">
-        </Button>
-
-    </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

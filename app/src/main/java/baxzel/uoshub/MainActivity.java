@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             String theCollege = course.getString("college");
 
                             studentName.setText(theFirstName + " " + theLastName);
-                            studentId.setText(theId);
+                            studentId.setText(theId + "@sharjah.ac.ae");
                             studentMajor.setText(theMajor);
                             studentCollege.setText(theCollege);
                         }
@@ -173,6 +173,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             intent.putExtra("fragmentType","grades");
         else if(id == R.id.navigation_holds)
             intent.putExtra("fragmentType","holds");
+        else if(id == R.id.navigation_logout)
+            intent.putExtra("fragmentType","logout");
 
         startActivity(intent);
 

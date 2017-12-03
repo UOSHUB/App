@@ -1,5 +1,6 @@
 package baxzel.uoshub;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -30,6 +31,8 @@ public class MinorActivity extends AppCompatActivity{
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_container2, new GradesFragment()).commit();
         else if(type.compareTo("holds") == 0)
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_container2, new HoldsFragment()).commit();
+        else if(type.compareTo("logout") == 0)
+            startActivity(new Intent(MinorActivity.this, LoginActivity.class));
     }
 
     public  boolean onOptionsItemSelected(MenuItem item){

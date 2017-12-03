@@ -1,24 +1,19 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
-        android:id="@+id/navigation_updates"
         android:icon="@drawable/icon_updates"
+        android:id="@+id/navigation_updates"
         android:title="@string/title_updates"/>
-
     <item
-        android:id="@+id/navigation_courses"
         android:icon="@drawable/icon_courses"
+        android:id="@+id/navigation_courses"
         android:title="@string/title_courses"/>
-
     <item
-        android:id="@+id/navigation_email"
         android:icon="@drawable/icon_email"
+        android:id="@+id/navigation_email"
         android:title="@string/title_email"/>
-
     <item
-        android:id="@+id/navigation_deadlines"
         android:icon="@drawable/icon_deadlines"
+        android:id="@+id/navigation_deadlines"
         android:title="@string/title_deadlines"/>
-
 </menu>

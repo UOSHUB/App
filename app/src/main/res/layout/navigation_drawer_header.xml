@@ -11,6 +11,9 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView
+        android:drawableLeft="@drawable/icon_student"
+        android:drawableStart="@drawable/icon_student"
+        android:drawablePadding="8dp"
         android:id="@+id/navigationDrawerStudentName"
         android:text="@string/student_name"
         android:layout_width="match_parent"
@@ -19,21 +22,36 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
     <TextView
+        android:drawableLeft="@drawable/icon_id"
+        android:drawableStart="@drawable/icon_id"
+        android:drawablePadding="8dp"
         android:id="@+id/navigationDrawerStudentId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/student_id"/>
+        android:text="@string/student_id"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
     <TextView
+        android:drawableLeft="@drawable/icon_major"
+        android:drawableStart="@drawable/icon_major"
+        android:drawablePadding="8dp"
         android:id="@+id/navigationDrawerStudentMajor"
         android:text="@string/student_major"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
     <TextView
+        android:drawableLeft="@drawable/icon_college"
+        android:drawableStart="@drawable/icon_college"
+        android:drawablePadding="8dp"
         android:id="@+id/navigationDrawerStudentCollege"
         android:text="@string/student_college"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
 </LinearLayout>
