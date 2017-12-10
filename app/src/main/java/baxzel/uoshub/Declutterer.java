@@ -21,7 +21,7 @@ public class Declutterer{
                 URL = "https://www.uoshub.com/api/emails/personal";
                 break;
             case "Deadlines":
-                URL = "https://www.uoshub.com/api/updates/";
+                URL = "https://www.uoshub.com/api/terms/201710/deadlines/";
                 break;
             case "Calendar":
                 URL = "https://www.uoshub.com/api/calendar/201720/";
@@ -43,4 +43,5 @@ public class Declutterer{
         CookieManager cookieManager = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
         CookieHandler.setDefault(cookieManager);
     }
+
 }

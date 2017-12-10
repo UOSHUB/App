@@ -1,10 +1,9 @@
-/*
 package baxzel.uoshub.database;
 
-*/
+
 /**
  * Created by Muhammad Owais on 02-Dec-17.
- *//*
+ */
 
 
 import android.content.Context;
@@ -16,6 +15,13 @@ public class DBDesigner extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "uoshub.db";
     private static final int 	DATABASE_VERSION = 1;
+
+    private static final String DATABASE_CREATE_TABLE_DETAILS = "create table details "
+            + "(studentID integer primary key,"
+            + "major text not null,"
+            + "college text not null,"
+            + "firstName text not null,"
+            + "lastName text not null);";
 
     private static final String DATABASE_CREATE_TABLE_UPDATES = "create table updates "
             + "(dismiss integer primary key,"
@@ -37,7 +43,7 @@ public class DBDesigner extends SQLiteOpenHelper {
             + "(id text primary key,"
             + "title text not null,"
             + "sender text not null,"
-            + "from text not null,"
+            + "fromm text not null,"
             + "event text not null,"
             + "time text not null);";
 
@@ -74,6 +80,7 @@ public class DBDesigner extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) {
+        database.execSQL(DATABASE_CREATE_TABLE_DETAILS);
         database.execSQL(DATABASE_CREATE_TABLE_UPDATES);
         database.execSQL(DATABASE_CREATE_TABLE_COURSES);
         database.execSQL(DATABASE_CREATE_TABLE_EMAILS);
@@ -88,6 +95,7 @@ public class DBDesigner extends SQLiteOpenHelper {
         Log.w(DBDesigner.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
+        db.execSQL("DROP TABLE IF EXISTS details");
         db.execSQL("DROP TABLE IF EXISTS updates");
         db.execSQL("DROP TABLE IF EXISTS courses");
         db.execSQL("DROP TABLE IF EXISTS emails");
@@ -97,4 +105,4 @@ public class DBDesigner extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS holds");
         onCreate(db);
     }
-}*/
+}

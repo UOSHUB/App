@@ -21,6 +21,7 @@ import baxzel.uoshub.Declutterer;
 import baxzel.uoshub.LoginActivity;
 import baxzel.uoshub.MyAdapter;
 import baxzel.uoshub.R;
+import baxzel.uoshub.database.DBManager;
 
 public class EmailFragment extends Fragment{
     String URL = Declutterer.URLHolder("Emails");
@@ -29,24 +30,23 @@ public class EmailFragment extends Fragment{
         if (container != null)
             container.removeAllViews();
 
+        final View v = inflater.inflate(R.layout.fragment_list, container, false);
+
+        final DBManager db = new DBManager(getContext());
+        db.open();
+        JSONArray Emails = db.getEmails();
+        if(Emails.length() == 0) {
+
         if(LoginActivity.mRequestQueue == null)
             LoginActivity.mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
-        final View v = inflater.inflate(R.layout.fragment_list, container, false);
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONArray>(){
                     public void onResponse(JSONArray response){
                         Log.d("response" , response.toString());
-                        try{
-                            ListView resultsListView = (ListView) v.findViewById(R.id.items_list);
-                            MyAdapter mMyAdapter = new MyAdapter
-            (getContext(), response, "title","sender", "time", "event","email");
-                            resultsListView.setAdapter(mMyAdapter);
-
-                        } catch (JSONException e){
-                            e.printStackTrace();
-                        }
+                        db.addEmails(response);
+                        feedAdapter(response, v);
                     }
                 },
                 new Response.ErrorListener(){
@@ -56,6 +56,23 @@ public class EmailFragment extends Fragment{
                 }
         );
         LoginActivity.mRequestQueue.add(jsonObjectRequest);
+        } else {
+            Log.d("Loading", "from db");
+            feedAdapter(Emails, v);
+
+        }
         return v;
+    }
+    void feedAdapter(JSONArray response, View v) {
+        try {
+            ListView resultsListView = (ListView) v.findViewById(R.id.items_list);
+            MyAdapter mMyAdapter = new MyAdapter
+                    (getContext(), response, "title","sender", "time", "event","email");
+            resultsListView.setAdapter(mMyAdapter);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }

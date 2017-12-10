@@ -1,10 +1,10 @@
-/*
+
 package baxzel.uoshub.database;
 
-*/
+
 /**
  * Created by Muhammad Owais on 03-Dec-17.
- *//*
+ */
 
 
 import android.content.ContentValues;
@@ -35,8 +35,71 @@ public class DBManager {
         database.close();
     }
 
+    public void addDetail(Integer studentID, String major, String college,
+                          String firstName, String lastName)
+    {
+
+        ContentValues values = new ContentValues();
+        values.put("studentID", studentID);
+        values.put("major", major);
+        values.put("college", college);
+        values.put("firstName", firstName);
+        values.put("lastName", lastName);
+
+        database.insert("details", null, values);
+    }
+
+    public void addDetails(JSONArray details) {
+
+            try {
+                JSONObject item = details.getJSONObject(0);
+                addDetail(
+                        item.getInt("studentID"),
+                        item.getString("major"),
+                        item.getString("college"),
+                        item.getString("firstName"),
+                        item.getString("lastName")
+                );
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+    }
+
+    public JSONArray getDetails()
+    {
+        JSONArray Details = new JSONArray();
+        String mQuery = "SELECT * From details";
+        Cursor mCur = database.rawQuery(mQuery, new String[]{});
+        if(mCur.moveToFirst())
+            do {
+
+                JSONObject tuple = new JSONObject();
+
+                String studentID = mCur.getString(0);
+                String major = mCur.getString(1);
+                String college = mCur.getString(2);
+                String firstName = mCur.getString(3);
+                String lastName = mCur.getString(4);
+
+                try {
+                    tuple.put("studentID", studentID);
+                    tuple.put("major", major);
+                    tuple.put("college", college);
+                    tuple.put("firstName", firstName);
+                    tuple.put("lastName", lastName);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Details.put(tuple);
+            } while (mCur.moveToNext());
+
+        return Details;
+    }
+
     public void addUpdate(Integer dismiss, String title, String course, String time)
     {
+
         ContentValues values = new ContentValues();
         values.put("dismiss", dismiss);
         values.put("title", title);
@@ -44,6 +107,21 @@ public class DBManager {
         values.put("time", time);
 
         database.insert("updates", null, values);
+    }
+
+    public void addUpdates(JSONArray updates) {
+        for(int i = 0; i < updates.length(); i++)
+            try {
+                JSONObject item = updates.getJSONObject(i);
+                addUpdate(
+                        item.getInt("dismiss"),
+                        item.getString("title"),
+                        item.getString("course"),
+                        item.getString("time")
+                );
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
     }
 
     public JSONArray getUpdates()
@@ -93,6 +171,25 @@ public class DBManager {
         database.insert("courses", null, values);
     }
 
+    public void addCourses(JSONArray courses) {
+        for(int i = 0; i < courses.length(); i++)
+            try {
+                JSONObject item = courses.getJSONObject(i);
+                addCourse(
+                        item.getString("id"),
+                        item.getString("title"),
+                        item.getString("doctor"),
+                        item.getString("email"),
+                        item.getString("days"),
+                        item.getString("start"),
+                        item.getString("end"),
+                        item.getString("location")
+                );
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+    }
+
     public JSONArray getCourses()
     {
         JSONArray Courses = new JSONArray();
@@ -138,11 +235,28 @@ public class DBManager {
         values.put("id", id);
         values.put("title", title);
         values.put("sender", sender);
-        values.put("from", from);
+        values.put("fromm", from);
         values.put("event", event);
         values.put("time", time);
 
         database.insert("emails", null, values);
+    }
+
+    public void addEmails(JSONArray emails) {
+        for(int i = 0; i < emails.length(); i++)
+            try {
+                JSONObject item = emails.getJSONObject(i);
+                addEmail(
+                        item.getString("id"),
+                        item.getString("title"),
+                        item.getString("sender"),
+                        item.getString("from"),
+                        item.getString("event"),
+                        item.getString("time")
+                );
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
     }
 
     public JSONArray getEmails()
@@ -189,6 +303,21 @@ public class DBManager {
         database.insert("deadlines", null, values);
     }
 
+    public void addDeadlines(JSONArray deadlines) {
+        for(int i = 0; i < deadlines.length(); i++)
+            try {
+                JSONObject item = deadlines.getJSONObject(i);
+                addDeadline(
+                        item.getString("title"),
+                        item.getInt("course"),
+                        item.getString("dueDate"),
+                        item.getString("time")
+                );
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+    }
+
     public JSONArray getDeadlines()
     {
         JSONArray Deadlines = new JSONArray();
@@ -226,6 +355,19 @@ public class DBManager {
         values.put("date", date);
 
         database.insert("calendar", null, values);
+    }
+
+    public void addCal_entries(JSONArray calendar) {
+        for(int i = 0; i < calendar.length(); i++)
+            try {
+                JSONObject item = calendar.getJSONObject(i);
+                addCal_entry(
+                        item.getString("text"),
+                        item.getString("date")
+                );
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
     }
 
     public JSONArray getCalendar()
@@ -266,6 +408,22 @@ public class DBManager {
         values.put("time", time);
 
         database.insert("grades", null, values);
+    }
+
+    public void addGrades(JSONArray grades) {
+        for(int i = 0; i < grades.length(); i++)
+            try {
+                JSONObject item = grades.getJSONObject(i);
+                addGrade(
+                        item.getString("title"),
+                        item.getInt("course"),
+                        item.getInt("outOf"),
+                        item.getInt("grade"),
+                        item.getString("time")
+                );
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
     }
 
     public JSONArray getGrades()
@@ -312,6 +470,21 @@ public class DBManager {
         database.insert("holds", null, values);
     }
 
+    public void addHolds(JSONArray holds) {
+        for(int i = 0; i < holds.length(); i++)
+            try {
+                JSONObject item = holds.getJSONObject(i);
+                addHold(
+                        item.getString("reason"),
+                        item.getString("type"),
+                        item.getString("start"),
+                        item.getString("end")
+                );
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+    }
+
     public JSONArray getHolds()
     {
         JSONArray Holds = new JSONArray();
@@ -347,4 +520,3 @@ public class DBManager {
         database.delete("donations", null, null);
     }
 }
-*/

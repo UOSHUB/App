@@ -21,6 +21,7 @@ import baxzel.uoshub.Declutterer;
 import baxzel.uoshub.LoginActivity;
 import baxzel.uoshub.MyAdapter;
 import baxzel.uoshub.R;
+import baxzel.uoshub.database.DBManager;
 
 public class UpdatesFragment extends Fragment{
     String URL = Declutterer.URLHolder("Updates");
@@ -29,33 +30,50 @@ public class UpdatesFragment extends Fragment{
         if(container != null)
             container.removeAllViews();
 
-        if(LoginActivity.mRequestQueue == null)
-            LoginActivity.mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-
         final View v = inflater.inflate(R.layout.fragment_list, container, false);
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
-            new Response.Listener<JSONArray>(){
-                public void onResponse(JSONArray response){
-                Log.d("response" , response.toString());
-                try{
-                    ListView resultsListView = (ListView) v.findViewById(R.id.items_list);
-                    MyAdapter mMyAdapter = new MyAdapter
-                            (getContext(), response, "title","course", "time", "course","updates");
-                        resultsListView.setAdapter(mMyAdapter);
+        final DBManager db = new DBManager(getContext());
+        db.open();
+        JSONArray Updates = db.getUpdates();
+        if(Updates.length() == 0) {
 
-                        } catch (JSONException e){
-                            e.printStackTrace();
+            if (LoginActivity.mRequestQueue == null)
+                LoginActivity.mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+
+
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
+                    new Response.Listener<JSONArray>() {
+                        public void onResponse(JSONArray response) {
+                            Log.d("response", URL + response.toString());
+                            db.addUpdates(response);
+                            feedAdapter(response, v);
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d("VOLLEY", error.getMessage() + "");
                         }
                     }
-                },
-                new Response.ErrorListener(){
-                    public void onErrorResponse(VolleyError error){
-                        Log.d("VOLLEY", error.getMessage() + "");
-                    }
-                }
-        );
-        LoginActivity.mRequestQueue.add(jsonArrayRequest);
+            );
+            LoginActivity.mRequestQueue.add(jsonArrayRequest);
+        } else {
+            Log.d("Loading", "from db");
+            feedAdapter(Updates, v);
+
+        }
         return v;
     }
+    void feedAdapter(JSONArray response, View v) {
+        try {
+            ListView resultsListView = (ListView) v.findViewById(R.id.items_list);
+            MyAdapter mMyAdapter = new MyAdapter
+                    (getContext(), response, "title", "course", "time", "course", "updates");
+            resultsListView.setAdapter(mMyAdapter);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

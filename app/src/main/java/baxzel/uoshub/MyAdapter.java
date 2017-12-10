@@ -70,9 +70,14 @@ public class MyAdapter extends ArrayAdapter
         TextView itemInfo = (TextView) customView.findViewById(R.id.item_info);
 
         try {
-            String theTitle = course.getString(mMain),
-            theSubTitle = course.getString(mSub),
-            theInfo = course.getString(mInf);
+            String theTitle = course.getString(mMain);
+            Log.v("deadlines",theTitle);
+
+            String theSubTitle = course.getString(mSub);
+            Log.v("deadlines",theSubTitle);
+
+            String theInfo = course.getString(mInf);
+            Log.v("deadlines",theInfo);
 
             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
             DateFormat df = new SimpleDateFormat("d MMM, EEE");
@@ -81,6 +86,7 @@ public class MyAdapter extends ArrayAdapter
 
             if (mOriginFragment.equals("deadlines"))
             {
+                Log.v("deadlines","deadlines start");
                 String theTime = course.getString(mWaqt);
                 Date timeDate = sf.parse(theTime);
                 String theTimeStr = df.format(timeDate);
@@ -92,6 +98,7 @@ public class MyAdapter extends ArrayAdapter
                 itemTime.setText(theTimeStr);
                 itemTitle.setText(theTitle);
                 itemInfo.setText(theInfo);
+                Log.v("deadlines","deadlines end");
             }
             else if (mOriginFragment.equals("courses"))
             {
