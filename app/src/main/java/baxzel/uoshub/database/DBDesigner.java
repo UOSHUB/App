@@ -1,11 +1,5 @@
 package baxzel.uoshub.database;
 
-
-/**
- * Created by Muhammad Owais on 02-Dec-17.
- */
-
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -78,7 +72,6 @@ public class DBDesigner extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    @Override
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(DATABASE_CREATE_TABLE_DETAILS);
         database.execSQL(DATABASE_CREATE_TABLE_UPDATES);
@@ -90,7 +83,6 @@ public class DBDesigner extends SQLiteOpenHelper {
         database.execSQL(DATABASE_CREATE_TABLE_HOLDS);
     }
 
-    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(DBDesigner.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
