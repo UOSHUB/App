@@ -24,6 +24,7 @@ import baxzel.uoshub.Declutterer;
 import baxzel.uoshub.LoginActivity;
 import baxzel.uoshub.MyAdapter;
 import baxzel.uoshub.R;
+import baxzel.uoshub.database.DBManager;
 
 public class CoursesFragment extends Fragment{
     String URL = Declutterer.URLHolder("Courses");
@@ -32,32 +33,36 @@ public class CoursesFragment extends Fragment{
         if (container != null)
             container.removeAllViews();
 
+        final View v = inflater.inflate(R.layout.fragment_list, container, false);
+
+        final DBManager db = new DBManager(getContext());
+        db.open();
+        JSONArray Courses = db.getCourses();
+        if(Courses.length() == 0) {
+
         if(LoginActivity.mRequestQueue == null)
             LoginActivity.mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
-        final View v = inflater.inflate(R.layout.fragment_courses, container, false);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
             new Response.Listener<JSONObject>(){
                 public void onResponse(JSONObject response){
                     Log.d("response", response.toString());
-                    try {
-                        ListView resultsListView = (ListView) v.findViewById(R.id.courses_list);
-                        Iterator keys = response.keys();
-                        //ArrayList<JSONArray> courses = new ArrayList<>();
-                        JSONArray courses = new JSONArray();
-                        while (keys.hasNext()) {
-                            String key = keys.next().toString();
-                            JSONObject course = response.getJSONObject(key);
-                            courses.put(course);
+                    Iterator keys = response.keys();
+                    JSONArray courses = new JSONArray();
+                    while (keys.hasNext()) {
+                        String key = keys.next().toString();
+                        JSONObject course = null;
+                        try {
+                            course = response.getJSONObject(key);
+                            course.put("id", key);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                        MyAdapter mMyAdapter = new MyAdapter(getContext(), courses, "title","title","title","title","courses" );
-
-                        resultsListView.setAdapter(mMyAdapter);
-
-                    }catch (JSONException e){
-                        e.printStackTrace();
+                        courses.put(course);
                     }
+                    db.addCourses(courses);
+                    feedAdapter(courses, v);
                 }
             },
             new Response.ErrorListener(){
@@ -67,6 +72,24 @@ public class CoursesFragment extends Fragment{
             }
         );
         LoginActivity.mRequestQueue.add(jsonObjectRequest);
+        } else {
+            Log.d("Loading", "from db");
+            feedAdapter(Courses, v);
+
+        }
         return v;
     }
+        void feedAdapter(JSONArray response, View v) {
+            try {
+                ListView resultsListView = (ListView) v.findViewById(R.id.items_list);
+
+                MyAdapter mMyAdapter = new MyAdapter
+                        (getContext(), response, "title","title","title","title","courses" );
+                resultsListView.setAdapter(mMyAdapter);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
 }
