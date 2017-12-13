@@ -20,15 +20,7 @@ import java.util.Date;
 
 import baxzel.uoshub.layout.TimeFunctions;
 
-
-/**
- * Created by Muhammad Owais on 26-Nov-17.
- */
-
-
-
-public class MyAdapter extends ArrayAdapter
-{
+public class MyAdapter extends ArrayAdapter{
     public static ArrayList<JSONObject> myData = new ArrayList<>();
     public String mMain;
     public String mSub;
@@ -36,9 +28,7 @@ public class MyAdapter extends ArrayAdapter
     public String mInf;
     public String mOriginFragment;
 
-    public MyAdapter( Context context, JSONArray data,
-          String main, String sub, String waqt, String inf, String origin )
-            throws JSONException {
+    public MyAdapter( Context context, JSONArray data, String main, String sub, String waqt, String inf, String origin) throws JSONException{
         super(context,R.layout.new_item_layout, myData);
 
         mOriginFragment = origin;
@@ -57,8 +47,7 @@ public class MyAdapter extends ArrayAdapter
 
     @NonNull
     @Override
-    public View getView(int position,  View convertView, ViewGroup parent)
-    {
+    public View getView(int position,  View convertView, ViewGroup parent){
         LayoutInflater myInflator = LayoutInflater.from(getContext());
         View customView = myInflator.inflate(R.layout.new_item_layout,parent,
                 false);
@@ -69,7 +58,7 @@ public class MyAdapter extends ArrayAdapter
         TextView itemTime = (TextView) customView.findViewById(R.id.item_time);
         TextView itemInfo = (TextView) customView.findViewById(R.id.item_info);
 
-        try {
+        try{
             String theTitle = course.getString(mMain),
             theSubTitle = course.getString(mSub),
             theInfo = course.getString(mInf);
@@ -77,10 +66,7 @@ public class MyAdapter extends ArrayAdapter
             SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
             DateFormat df = new SimpleDateFormat("d MMM, EEE");
 
-
-
-            if (mOriginFragment.equals("deadlines"))
-            {
+            if(mOriginFragment.equals("deadlines")){
                 String theTime = course.getString(mWaqt);
                 Date timeDate = sf.parse(theTime);
                 String theTimeStr = df.format(timeDate);
@@ -93,15 +79,13 @@ public class MyAdapter extends ArrayAdapter
                 itemTitle.setText(theTitle);
                 itemInfo.setText(theInfo);
             }
-            else if (mOriginFragment.equals("courses"))
-            {
+            else if(mOriginFragment.equals("courses")){
                 itemTitle.setText(theTitle);
                 itemSubTitle.setText("");
                 itemTime.setText("");
                 itemInfo.setText("");
             }
-            else if (mOriginFragment.equals("updates"))
-            {
+            else if(mOriginFragment.equals("updates")){
                 String theTime = course.getString(mWaqt);
                 Date timeDate = sf.parse(theTime);
                 String theTimeStr = df.format(timeDate);
@@ -111,8 +95,7 @@ public class MyAdapter extends ArrayAdapter
                 itemTime.setText(theTimeStr);
                 itemInfo.setText("");
             }
-            else if (mOriginFragment.equals("email"))
-            {
+            else if(mOriginFragment.equals("email")){
                 String theTime = course.getString(mWaqt);
                 Date timeDate = sf.parse(theTime);
                 String theTimeStr = df.format(timeDate);
@@ -122,8 +105,7 @@ public class MyAdapter extends ArrayAdapter
                 itemTime.setText(theTimeStr);
                 itemInfo.setText(theInfo);
             }
-            else if (mOriginFragment.equals("calendar"))
-            {
+            else if(mOriginFragment.equals("calendar")){
                 String theTime = course.getString(mWaqt);
 
                 itemTitle.setText(theTitle);
@@ -131,8 +113,7 @@ public class MyAdapter extends ArrayAdapter
                 itemTime.setText(theTime);
                 itemInfo.setText("");
             }
-            else if (mOriginFragment.equals("grades"))
-            {
+            else if(mOriginFragment.equals("grades")){
                 String theTime = course.getString(mWaqt);
                 String gradeStr = theSubTitle + ": " + theInfo + "/" + theTime;
 
@@ -144,7 +125,7 @@ public class MyAdapter extends ArrayAdapter
 
 
 
-        } catch (Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         }
         return customView;

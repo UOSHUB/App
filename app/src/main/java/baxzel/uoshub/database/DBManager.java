@@ -25,7 +25,7 @@ public class DBManager {
 
     public void open() throws SQLException {
         database = dbHelper.getWritableDatabase();
-    }
+//    }
 
     public void close() {
         database.close();

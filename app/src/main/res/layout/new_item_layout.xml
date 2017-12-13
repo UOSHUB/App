@@ -1,66 +1,66 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-      xmlns:android="http://schemas.android.com/apk/res/android"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_margin="8dp"
-      android:orientation="horizontal"
-      android:layout_marginTop="4dp">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="8dp">
 
     <LinearLayout
-        android:layout_width="15dp"
+        android:paddingLeft="10dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:orientation="vertical"
-        android:layout_marginBottom="4dp">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/item_title"
+            android:paddingRight="20dp"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:text="Title"
-            android:textColor="@android:color/black"
-            android:textSize="17sp"
-            android:layout_marginBottom="4dp"/>
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:ellipsize="end"
+            android:maxLines="1"/>
 
         <TextView
             android:id="@+id/item_sub_title"
+            android:paddingRight="20dp"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:text="SubTitle"
-            android:textSize="14sp"/>
-
+            android:textSize="16sp"
+            android:ellipsize="end"
+            android:maxLines="1"/>
 
     </LinearLayout>
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="15dp"
-        android:layout_height="47dp"
-        android:layout_weight="1"
+        android:paddingRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-
 
         <TextView
             android:id="@+id/item_time"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:text="timestamp"
-            android:textColor="@android:color/black"
-            android:textSize="12sp"/>
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:ellipsize="end"
+            android:maxLines="1"/>
 
         <TextView
             android:id="@+id/item_info"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:text="info"
-            android:textSize="12sp"/>
+            android:textSize="16sp"
+            android:ellipsize="end"
+            android:maxLines="1"/>
 
     </LinearLayout>
-
 </LinearLayout>
